@@ -13,11 +13,17 @@
 </head>
 
 <body>
-    <div class="card ">
-        <img src="./assets/apple-pie.jpeg" alt="Recipe Card">
-        <div class="container">
-            <h4><b>Apple Pie</b></h4>
-            <p>Recipe: </p>
+    <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+        <div class="flipper">
+            <div class="front">
+                <!-- front content -->
+                <img src="./assets/apple-pie.jpeg" alt="Recipe Card">
+                <h4><b>Apple Pie</b></h4>
+            </div>
+            <div class="back">
+                <!-- back content -->
+                <p>Recipe: </p>
+            </div>
         </div>
     </div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
