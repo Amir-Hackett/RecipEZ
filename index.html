@@ -1,18 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!--Bulma Framework-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link ref="stylesheet" href="./assets/css/style.css"/>
-    <title>RecipEZ</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="./assets/js/script.js"></script>
-</body>
+    <!--Bulma Framework-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link ref="stylesheet" href="./assets/css/style.css" />
+    <title>RecipEZ</title>
+  </head>
+  <!-- header -->
+  <header class="jumbotron">
+    <h1>RecipEZ</h1>
+    <p>Enter application description</p>
+    <!-- navigation -->
+    <nav>
+      <!-- insert about us and contact us pages -->
+      <ul>
+        <li>
+          <a href="">About Us</a>
+        </li>
+        <li>
+          <a href="">Contact Us</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <body>
+    <!-- search form -->
+    <div>
+      <form>
+        <label for="search">Search by:</label>
+        <select name="search" id="search">
+          <optgroup label="category"></optgroup>
+          <optgroup label="ingredient"></optgroup>
+          <optgroup label="recipe"></optgroup>
+        </select>
+      </form>
+    </div>
+
+    <!-- search results -->
+    <main class="columns is-mobile">
+      <div id="recipe" class="column is-narrow">
+        <div class="box" style="width: 300px">
+          <p class="title is-5">First Recipe Card</p>
+          <p class="subtitle">The info here</p>
+        </div>
+      </div>
+      <div id="recipe" class="column is-narrow">
+        <div class="box" style="width: 300px">
+          <p class="title is-5">Second Recipe Card</p>
+          <p class="subtitle">The info here</p>
+        </div>
+      </div>
+      <div id="recipe" class="column is-narrow">
+        <div class="box" style="width: 300px">
+          <p class="title is-5">Third Recipe Card</p>
+          <p class="subtitle">The info here</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2022 RecipEZ</p>
+      <ul>
+        <li>
+          <a href="">About Us</a>
+        </li>
+        <li>
+          <a href="">Contact Us</a>
+        </li>
+        <li>
+          <a href="">License Information</a>
+        </li>
+        <li>
+          <a href="">API Information</a>
+        </li>
+      </ul>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
