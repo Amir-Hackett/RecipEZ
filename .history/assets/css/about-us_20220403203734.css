@@ -5,8 +5,7 @@
 
 .hero,
 .cta {
-  background-image: url(../images/all_the_colors.jpg);
-  background-size: contain;
+  background: url(data:image/svg+xml;charset=utf8,%3Csvg%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cfilter%20id%3D%22noise%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.875%22%20result%3D%22noise%22%20%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.4296875%200%22%20%2F%3E%3C%2Ffilter%3E%3Crect%20filter%3D%22url%28%23linear-gradient(52deg, #42475C 0%, #20222E 71%);
 }
 
 .cta {
@@ -47,7 +46,7 @@ hr.content-divider {
 }
 
 #parallax-1 {
-  background: url(../images/exotic_spices.jpg);
+  background: url(https://source.unsplash.com/featured/?nature);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -60,7 +59,7 @@ hr.content-divider {
 }
 
 #parallax-2 {
-  background: url(../images/sharing_food.jpg);
+  background: url(https://source.unsplash.com/featured/?computers);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -73,7 +72,7 @@ hr.content-divider {
 }
 
 #parallax-3 {
-  background: url(../images/learn.jpg);
+  background: url(https://source.unsplash.com/featured/?city);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;

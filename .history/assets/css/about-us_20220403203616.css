@@ -3,10 +3,8 @@
   align-items: center;
 }
 
-.hero,
-.cta {
-  background-image: url(../images/all_the_colors.jpg);
-  background-size: contain;
+.hero {
+  background-color: linear-gradient(52deg, #42475C 0%, #20222E 71%);
 }
 
 .cta {
@@ -47,7 +45,7 @@ hr.content-divider {
 }
 
 #parallax-1 {
-  background: url(../images/exotic_spices.jpg);
+  background: url(https://source.unsplash.com/featured/?nature);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -60,7 +58,7 @@ hr.content-divider {
 }
 
 #parallax-2 {
-  background: url(../images/sharing_food.jpg);
+  background: url(https://source.unsplash.com/featured/?computers);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -73,7 +71,7 @@ hr.content-divider {
 }
 
 #parallax-3 {
-  background: url(../images/learn.jpg);
+  background: url(https://source.unsplash.com/featured/?city);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
