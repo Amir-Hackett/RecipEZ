@@ -17,7 +17,7 @@ html,body {
     max-height: 5rem;
 }
 
-.navbar-menu, .navbar-item, .navbar, .navbar-brand {
+.navbar-menu, .navbar-item, .navbar, .navbar-brand, .hero-head {
     background-color: #f5f5f5;
 }
 
