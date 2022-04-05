@@ -9,12 +9,16 @@ html,body {
     --tertiary-color: (#2a4729);
 }
 
+.navbar-menu {
+  color: #2a4729;
+}
+
 .navbar-item img {
     max-height: 5rem;
 }
 
-nav .navbar-menu, .navbar-item, .navbar, .navbar-brand {
-    background-color: #89cc87;
+.navbar-menu, .navbar-item, .navbar, .navbar-brand, .hero-head {
+    background-color: #f5f5f5;
 }
 
   .hero-body {
@@ -49,7 +53,7 @@ nav .navbar-menu, .navbar-item, .navbar, .navbar-brand {
     font-size: 8rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    color: #209cee;
+    color: #2a4729;
   }
   .card-content .content {
     font-size: 14px;
@@ -94,5 +98,5 @@ nav .navbar-menu, .navbar-item, .navbar, .navbar-brand {
     font-family: 'FontAwesome';
     float: left;
     margin-left: -1.5em;
-    color: #147efb;
+    color: #2a4729;
   }
