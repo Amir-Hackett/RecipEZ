@@ -53,6 +53,14 @@
     </nav>
     <!-- END NAV -->
 
+    <p>Hello everyone!</p> 
+    <p>Welcome to GeeksforGeeks</p> 
+      
+    <p>
+        Translate this page in
+        your preferred language:
+    </p> 
+    <div id="google_translate_element"></div>
     <div class="container">
       <div class="section">
         <div class="columns">
@@ -60,6 +68,7 @@
             <h1 class="title" style="color: ghostwhite;">Bulma Card Layout Template</h1><br>
           </div>
         </div>
+
         <div id="app" class="row columns is-multiline">
           <div v-for="card in cardData" key="card.id" class="column is-4">
             <div class="card large">
@@ -68,6 +77,7 @@
                   <img :src="card.image" alt="Image">
                 </figure>
               </div>
+
               <div class="card-content">
                 <div class="media">
                   <div class="media-left">
@@ -75,10 +85,18 @@
                       <img :src="card.avatar" alt="Image">
                     </figure>
                   </div>
-                  
-
               </div>
             </div>
+
+            <div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget imperdiet nulla, et mollis nibh. Nunc lacinia sodales molestie. Aenean augue urna, sollicitudin vel eros non, pulvinar dignissim quam. Cras in cursus risus, sed faucibus metus. Pellentesque a justo odio. Mauris aliquam lorem eu erat imperdiet pretium. Proin ut eros dictum, mollis mauris quis, faucibus metus.
+
+Curabitur eget dolor sed sapien pretium mollis. Suspendisse vitae ante vestibulum, ornare lectus at, eleifend nunc. Nunc scelerisque auctor risus, vehicula consequat eros varius ornare. Suspendisse pharetra suscipit eleifend. Aenean aliquam et ante in elementum. Integer rhoncus lorem non scelerisque facilisis. Suspendisse dignissim interdum dolor, viverra scelerisque diam mattis eu. Suspendisse id semper magna. Aliquam viverra turpis in urna dictum fermentum. Aenean purus mauris, varius in eros sed, ultricies auctor dui. Morbi consectetur lorem a nunc eleifend feugiat. Vivamus condimentum libero vitae porta accumsan. Sed vel nibh id est sodales aliquet ac non mi. Sed rhoncus efficitur justo non laoreet. Aliquam erat volutpat. Etiam ac vulputate lectus, at fringilla dolor.
+
+              </p>
+            </div>
+
           </div>
         </div>
       </div>
@@ -93,6 +111,20 @@
             <a href="#"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a>
           </div>
           <p>
+            <script type="text/javascript"> 
+              function googleTranslateElementInit() { 
+                  new google.translate.TranslateElement(
+                      {pageLanguage: 'en'}, 
+                      'google_translate_element'
+                  ); 
+              } 
+          </script> 
+            
+          <script type="text/javascript" src=
+      "https://translate.google.com/translate_a/element.js?
+              cb=googleTranslateElementInit">
+          </script> 
+            
             <strong>Bulma</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>.
             The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. <br>
           </p>
