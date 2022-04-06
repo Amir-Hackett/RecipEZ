@@ -1,5 +1,5 @@
 <h1 align="center">RecipEZ<h1>
-<img src="https://i.ibb.co/2tN7k5y/recip-EZ3-2.png" alt="RecipEZ Logo" border="0" />
+<img src="https://i.ibb.co/2tN7k5y/recip-EZ3-2.png" alt="RecipEZ Logo" border="0" align="center" />
 
 <h2 align="center">Forget the annoying fluff, all you need is the good stuff.</h2>
 <br>
@@ -59,9 +59,9 @@
 
 <h3 id="contributors">Contributors</h3>
 <ul>
-<li><a href="">Vincent Teune</a></li>
-<li><a href="">Amir Hackett</a></li>
-<li><a href="">Jamie Steinbauer</a></li>
+<li><a href="https://github.com/cobalt88">Vincent Teune</a></li>
+<li><a href="https://github.com/Amir-Hackett">Amir Hackett</a></li>
+<li><a href="https://github.com/JamieSteinbauer">Jamie Steinbauer</a></li>
 </ul>
 
 <h3 id="mock-up">Mock Up</h3>
