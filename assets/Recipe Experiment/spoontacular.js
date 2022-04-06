@@ -1,6 +1,7 @@
 var userInput = "";
 var submitRecipe = document.getElementById("submit-btn");
 var recipeContainer = document.querySelector('#recipeContainer') 
+var searchResultsContainer = document.querySelector('#recipeSearchResults')
 var recipeArr = [];
 
 
@@ -29,11 +30,11 @@ $("#submit-btn").on("click", function () {
 function loadCards(){
   for (var i = 0; i < 3; i++) {
     var recipe = recipeArr[0].searchResults[0].results;
-    console.log(recipeArr[0].searchResults[0].results[0]);
-
-   recipeContainer.innerHTML = `
-    <div class="column is-4">
-    <div class="card is-shady">
+    // console.log(recipeArr[0].searchResults[0].results[0]);
+    // console.log(recipeContainer);
+   searchResultsContainer.innerHTML += `
+    
+    <div class="card is-shady column is-3">
       <div class="card-image has-text-centered">
         <i class="fa-solid fa-utensils"></i>
       </div>
@@ -50,7 +51,7 @@ function loadCards(){
       </div>
 
     </div>
-  </div>
+  
     `
   }
 }
