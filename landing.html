@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RecipEZ</title>
+    <link
+      rel="shortcut icon"
+      href="../RecipEZ/assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+
+    <!-- Bulma Version 0.9.0 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <!-- landing css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/landing.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css"
+    />
+  </head>
+  <body>
+    <section class="hero is-info is-medium is-bold">
+      <div class="hero-head">
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="../">
+                <img
+                  src="./assets/images/recipEZ3.png"
+                  alt="Logo"
+                />
+              </a>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+              <div class="navbar-end">
+                <div class="tabs is-right">
+                  <ul>
+                    <li class="is-active"><a>Home</a></li>
+                    <li><a href="recipe.html">Recipes</a></li>
+                    <li><a href="./assets/sub-pages/about-us.html">About Us</a></li>
+                    <li><a href="">Contact Us</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title">
+          Recip<span>EZ</span>
+          </h1>
+          <h2 class="subtitle">
+          No more arguing about what you're going to eat! Forget the annoying fluff, all you need is the good stuff.
+          </h2>
+      </div>
+      </div>
+    </section>
+    <div class="box cta">
+      <p class="has-text-centered">
+        <span class="tag is-primary">New</span> Searching for a recipe has never been easier! Search by category, ingredient, or recipe name to see what we suggest!
+      </p>
+    </div>
+
+    <!-- search form -->
+    <div>
+      <form>
+        <label for="search">Search by:</label>
+        <select name="search" id="search">
+          <option value="recipe">Recipe</option>
+          <option value="category">Category</option>
+          <option value="ingredient">Ingredient</option>
+          <input type="text" id="search" name="search">
+        </select>
+        <br>
+        <input id="submit-btn" type="submit" value="Submit">
+      </form>
+    </div>
+
+    <!-- recipe cards -->
+    <section class="container">
+      <div class="columns features">
+        <!-- first card -->
+        <div class="column is-4">
+          <div class="card is-shady">
+            <div class="card-image has-text-centered">
+              <i class="fa-solid fa-utensils"></i>
+            </div>
+            
+            <div class="card-content">
+              <div class="content">
+                <h4>Turkey Sandwich</h4>
+                <p>
+                  A simple sandwich for the lazy person.
+                </p>
+                <p><a href="#">See Full Recipe</a></p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- second card -->
+        <div class="column is-4">
+          <div class="card is-shady">
+            <div class="card-image has-text-centered">
+              <i class="fa-duotone fa-utensils"></i>
+            </div>
+            <div class="card-content">
+              <div class="content">
+                <h4>Chicken Noodle Soup</h4>
+                <p>
+                  Feeling sick? Try this one.
+                </p>
+                <p><a href="#">See Full Recipe</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- third card -->
+        <div class="column is-4">
+          <div class="card is-shady">
+            <div class="card-image has-text-centered">
+              <i class="fa fa-burger"></i>
+            </div>
+            <div class="card-content">
+              <div class="content">
+                <h4>Greek Salad</h4>
+                <p>
+                  For the feta cheese lovers.
+                </p>
+                <p><a href="#">See Full Recipe</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <!-- footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-3 is-offset-2">
+            <h2><strong>Navigation</strong></h2>
+            <ul>
+              <li><a href="#">To the top</a></li>
+              <li><a href="./recipe.html">Recipe</a></li>
+              <li><a href="./assets/subPages/about-us.html">About Us</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+          </div>
+             
+
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
