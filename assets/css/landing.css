@@ -22,7 +22,9 @@ html,body {
 }
 
 .hero-body {
-  background-image: url(../images/hero.jpg);
+  background-image: url(../images/hero2.png);
+  height: 500px;
+  background-size: cover;
 }
 
   .hero-body {
