@@ -28,10 +28,10 @@ $("#submit-btn").on("click", function () {
 
 function loadCards(){
   for (var i = 0; i < 3; i++) {
-    let recipe = recipeArr[0].searchResults[0].results;
-    console.log(recipe);
+    var recipe = recipeArr[0].searchResults[0].results;
+    console.log(recipeArr[0].searchResults[0].results[0]);
 
-    $('#recipeContainer').innerHTML = `
+   recipeContainer.innerHTML = `
     <div class="column is-4">
     <div class="card is-shady">
       <div class="card-image has-text-centered">
@@ -40,11 +40,12 @@ function loadCards(){
       
       <div class="card-content">
         <div class="content">
-          <h4>Turkey Sandwich</h4>
+          <img src="${recipe[i].image}"/>
+          <h4>${recipe[i].name}</h4>
           <p>
-            A simple sandwich for the lazy person.
+            ${recipe[i].content}
           </p>
-          <p><a href="#">See Full Recipe</a></p>
+          <p><a href="${recipe[i].link}">See Full Recipe</a></p>
         </div>
       </div>
 
