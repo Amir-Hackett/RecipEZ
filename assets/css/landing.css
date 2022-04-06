@@ -21,6 +21,10 @@ html,body {
     background-color: #f5f5f5;
 }
 
+.hero-body {
+  background-image: url(../images/hero.jpg);
+}
+
   .hero-body {
       background-color: #2a4729;
   }
