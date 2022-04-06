@@ -1,6 +1,7 @@
 var userInput = "";
 var submitRecipe = document.getElementById("submit-btn");
 var recipeContainer = document.querySelector('#recipeContainer') 
+var recipeArr = [];
 
 
 var recipeArr = [];
@@ -13,41 +14,52 @@ function spoontacularAPI(recipe){
     fetch(apiURL)
     .then(function(response){
         response.json().then(function(data){
-            displayRecipe(data, recipe)
+            recipeArr.push(data)
         })
     })
 }
 
-// $(".saveBtn").on("click", function () {})
-    
-function loadRecipeCards () {
-  console.log(recipeArr)
-// build for loop to generate card
+$("#submit-btn").on("click", function () {
+  loadCards();
+  
+  // console.log(recipeArr[0].searchResults[0].results);
 
-//build for lop to generate recipe instructions based on recipe directions array inside of each recipe object.
-  for (var i = 0; i < recipeArr.length; i++) {
+})
 
-    recipeContainer.innerHTML +=
-  `
-      <div class="card-content">
-          <div class="content">
-            <h4>${recipeArr[i].recipeTitle}</h4>
-            <p id="directions${i}>
-              
-            </p>
-            <p><a href="#">Learn more</a></p>
-          </div>
-        </div>`
-    for (var i = 0; i < recipeArr[i].directions.length; i++) {
+function loadCards(){
+  for (var i = 0; i < 3; i++) {
+    let recipe = recipeArr[0].searchResults[0].results;
+    console.log(recipe);
+
+    $('#recipeContainer').innerHTML = `
+    <div class="column is-4">
+    <div class="card is-shady">
+      <div class="card-image has-text-centered">
+        <i class="fa-solid fa-utensils"></i>
+      </div>
       
-    }
+      <div class="card-content">
+        <div class="content">
+          <h4>Turkey Sandwich</h4>
+          <p>
+            A simple sandwich for the lazy person.
+          </p>
+          <p><a href="#">See Full Recipe</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    `
   }
 }
+    
 
 
 
 
 
 
-// spoontacularAPI();
-loadRecipeCards();
+
+spoontacularAPI();
+// loadRecipeCards();
