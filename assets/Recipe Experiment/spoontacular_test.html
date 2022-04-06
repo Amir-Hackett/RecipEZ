@@ -70,12 +70,12 @@
 
     <!-- search form -->
     <div>
-      <button>
+      
         <label for="sort">Sort By:</label>
         <select name="sort" id="sort">
           <option value="recipe">Recipe</option>
           <option value="drink">Drink</option>
-          <input type="text" id="sort" name="sort" placeholder="What are you looking for?">
+          <input type="text" id="searchInput" name="sort" placeholder="What are you looking for?">
         </select>
         <br>
         
@@ -83,12 +83,35 @@
       
     </div>
 
-    <!-- recipe cards -->
-    <div class="container columns" id="recipeContainer">
-      <div class="column is-full" id="recipeSearchResults">
+    <!-- featured or favorite recipes that generate when the page loads -->
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
         <!-- cards load here -->
       </div>
     </div>
+
+    <!-- recipe cards -->
+    <!-- <div class="container columns" id="recipeContainer"> -->
+      <div class="container columns is-full" id="recipeSearchResults">
+        <!-- cards load here -->
+      </div>
+    <!-- </div> -->
+
+    <!-- drink cards -->
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
+        <!-- cards load here -->
+      </div>
+    </div>
+
+    <!-- spare -->
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
+        <!-- cards load here -->
+      </div>
+    </div>
+
+
     <!-- footer -->
     <footer class="footer">
       <div class="container">

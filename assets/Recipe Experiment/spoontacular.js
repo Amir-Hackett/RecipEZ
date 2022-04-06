@@ -1,44 +1,43 @@
-var userInput = "";
+var searchInput = "";
 var submitRecipe = document.getElementById("submit-btn");
 var recipeContainer = document.querySelector('#recipeContainer') 
 var searchResultsContainer = document.querySelector('#recipeSearchResults')
-var recipeArr = [];
+var recipeSearchArr = [];
 
 
-var recipeArr = [];
 
-function spoontacularAPI(recipe){
+function spoontacularAPI(){
     //spoontacularAPI Key
     var apiKey = "33e1a2adb44145efa8cd514a15f3d98c"
-    var apiURL = `https://api.spoonacular.com/food/search?query=${userInput}&number=3&apiKey=${apiKey}`
+    var apiURL = `https://api.spoonacular.com/food/search?query=${searchInput}&number=3&apiKey=${apiKey}`
 
     fetch(apiURL)
     .then(function(response){
         response.json().then(function(data){
-            recipeArr.push(data)
-        })
+          recipeSearchArr.push(data);          
+        }); 
     })
+    
 }
 
-$("#submit-btn").on("click", function () {
-  loadCards();
-  
-  // console.log(recipeArr[0].searchResults[0].results);
 
-})
+
 
 function loadCards(){
+
+  spoontacularAPI()
+  console.log(recipeSearchArr);
+  var recipe = recipeSearchArr[0].searchResults[0].results;
+  
+
   for (var i = 0; i < 3; i++) {
-    var recipe = recipeArr[0].searchResults[0].results;
-    // console.log(recipeArr[0].searchResults[0].results[0]);
-    // console.log(recipeContainer);
-   searchResultsContainer.innerHTML += `
     
-    <div class="card is-shady column is-3">
+   searchResultsContainer.innerHTML += 
+   `
+    <div class="card is-shady column is-4">
       <div class="card-image has-text-centered">
         <i class="fa-solid fa-utensils"></i>
       </div>
-      
       <div class="card-content">
         <div class="content">
           <img src="${recipe[i].image}"/>
@@ -49,19 +48,23 @@ function loadCards(){
           <p><a href="${recipe[i].link}">See Full Recipe</a></p>
         </div>
       </div>
-
     </div>
-  
     `
   }
 }
     
 
+$("#submit-btn").click(function () {
+  searchInput = $(this).siblings("#searchInput").val().toLowerCase();
+  console.log(searchInput);
+  if (searchInput != null) {
+    loadCards();
+    }
+});
 
 
 
 
 
-
-spoontacularAPI();
+// spoontacularAPI();
 // loadRecipeCards();
