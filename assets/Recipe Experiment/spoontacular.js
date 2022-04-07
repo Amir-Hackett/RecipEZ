@@ -19,6 +19,7 @@ function spoontacularAPI(){
     })
 }
 
+// loads cards based on the search parameters the user selects.
 function loadCards(){
 
   console.log(recipeSearchArr);
@@ -48,8 +49,14 @@ function loadCards(){
     `
   }
 }
-    
 
+// function for building the fetch request from the advanced search
+    // collect all variables that have an input or true value and declare them all as local variables
+    // concatenate all the variables into a fetch request
+    // return results to the recipe array that displays search results
+
+    
+// event listener for the quick search
 $("#submit-btn").click(function () {
   searchInput = $(this).siblings("#searchInput").val().toLowerCase();
   var selector = $(this).siblings('#sort').val();
@@ -60,13 +67,9 @@ $("#submit-btn").click(function () {
   } else {
     console.log('nothing gets called')
   }
-    
-    
 });
 
-
-
-
-
-// spoontacularAPI();
-// loadRecipeCards();
+//event listener for the advanced search form (food only)
+$("adv-search-btn").click(function(){
+  advSearchFunction();
+});

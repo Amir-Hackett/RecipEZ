@@ -68,22 +68,23 @@
       </p>
     </div>
 
-    <!-- quick search form -->
-    <div>
-        <label for="sort">Quick Search:</label>
-        <select name="sort" id="sort">
-          <option value="recipe">Recipe</option>
-          <option value="drink">Drink</option>
-          <input type="text" id="searchInput" name="sort" placeholder="What would you like to make?">
-        </select>
-        <button id="submit-btn">Search</button>
-    </div>
+    <div id="search-container">
+      <!-- quick search form -->
+      <div>
+          <label for="sort">Quick Search:</label>
+          <select name="sort" id="sort">
+            <option value="recipe">Recipe</option>
+            <option value="drink">Drink</option>
+            <input type="text" id="searchInput" name="sort" placeholder="What would you like to make?">
+          </select>
+          <button id="submit-btn">Search</button>
+      </div>
 
-    <!-- advanced search for recipes -->
-    <div>
-      <details>
-        <summary> Advanced Search Options:</summary>
-        <form name="advanced-recipe-search">
+      <!-- advanced search for recipes -->
+      <div>
+        <details>
+          <summary> Advanced Search Options:</summary>
+          <form name="advanced-recipe-search">
           <h4>Any fields left blank will not be used in the search parameters.</h4>
           <!-- same parameter as general search -->
           <label for="key-word">Search Key Word</label>
@@ -286,13 +287,15 @@
             <option value="time">Time</option>
             <option value="random">Random</option>
             <option value="calories">Calories</option>
-        </form>
-      </details>
-    </div>
+          </form>
+        </details>
+        <button id="adv-search-btn">Search</button>
+      </div>
 
-    <!-- advanced search for drinks -->
-    <div>
-
+      <!-- advanced search for drinks -->
+      <div>
+      </div>
+      
     </div>
 
     <!-- featured or favorite recipes that generate when the page loads -->
