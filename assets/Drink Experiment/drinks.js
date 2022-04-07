@@ -25,9 +25,6 @@ function getCocktail(){
   }); 
 }
 
-getCocktail()
-
-
 function displayCocktail(cocktail){
   for(i = 0; i < cocktail.drinks.length; i++){
 
