@@ -25,24 +25,11 @@ function getCocktail(){
 }
 
 function loadCards(data){
-
-  for (var i = 3; i <= 3; i++) {
     for(var x = 0; x < data.drinks.length - 3; x++){
-      var cocktailIngredient = data.drinks[x]['strIngredient' + i]
-
-    var cocktail = data;
-      
-    if(!cocktailIngredient){
-      break
-    }
+      var cocktail = data;
 
    searchResultsContainer.innerHTML += `
     
-    <div class="card is-shady column is-3">
-      <div class="card-image has-text-centered">
-        <i class="fa-solid fa-utensils"></i>
-      </div>
-      
       <div class="card-content">
         <div class="content">
           <img src="${cocktail.drinks[x].strDrinkThumb}"/>
@@ -69,7 +56,6 @@ function loadCards(data){
     </div>
   
     `
-  }
   }
 }
 
