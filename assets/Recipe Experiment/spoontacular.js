@@ -44,6 +44,10 @@ function loadCards(){
             ${recipe[i].content}
           </p>
           <p><a href="${recipe[i].link}">See Full Recipe</a></p>
+          <p>
+            <label for="favorite">Favorite Recipe</label>
+            <input id="favorite" type="checkbox" name="favorite"><br/>
+          </p>
         </div>
       </div>
     </div>
