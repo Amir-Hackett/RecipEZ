@@ -19,24 +19,22 @@ function spoontacularAPI(){
     })
 }
 
+
 // loads cards based on the search parameters the user selects.
 function loadCards(){
 
-  // console.log(recipeSearchArr);
   var recipe = recipeSearchArr[0].searchResults[0].results;
   console.log(recipe);
-  console.log(searchResultsContainer)
-  
-
+  searchResultsContainer.innerHTML = '';
   for (var i = 0; i < 3; i++) {
-    
+  
    searchResultsContainer.innerHTML += 
    `
     <div class="card is-shady column is-4">
       <div class="card-image has-text-centered">
         <i class="fa-solid fa-utensils"></i>
       </div>
-      <div class="card-content">
+      <div class="card-content" data="${recipe[i].id}">
         <div class="content">
           <img src="${recipe[i].image}"/>
           <h4>${recipe[i].name}</h4>
@@ -46,15 +44,15 @@ function loadCards(){
           <p><a href="${recipe[i].link}">See Full Recipe</a></p>
           <p>
             <label for="favorite">Favorite Recipe</label>
-            <input id="favorite" type="checkbox" name="favorite"><br/>
           </p>
         </div>
+        <button>save</button>
       </div>
     </div>
     `
   }
+ recipeSearchArr = [];
 }
-
 // function for building the fetch request from the advanced search
     // collect all variables that have an input or true value and declare them all as local variables
     // concatenate all the variables into a fetch request
@@ -66,15 +64,23 @@ function advSearchFunction(data) {
   var cuisineOptions = searchInput.siblings('#cuisine')[0].children;
   var cuisineString = '';
 
+  // var selectedCuisineOptions = cuisineOptions.filter(function(item) {
+  //   console.log(item)
+  // });
+
   for (var i = 0; i < cuisineOptions.length; i++){
     if (cuisineOptions[i].checked){
       let checkedOption = cuisineOptions[i].previousElementSibling.innerHTML;
-      cuisineString += checkedOption;
+      cuisineString += `${checkedOption},`;
       console.log(cuisineOptions[i].previousElementSibling.innerHTML);
     }
   }
   // console.log(keyWord);
   console.log(cuisineString);
+}
+
+function saveRecipes(target) {
+  console.log(target.innerHTML)
 }
 
 
@@ -96,4 +102,10 @@ $("#adv-search-btn").click(function(){
   var data = $(this);
   advSearchFunction(data);
  
+});
+
+// event listener for save button
+$("#recipeSearchResults").click(function(event){
+  let target = event.target.parentElement;
+  saveRecipes(target);
 });
