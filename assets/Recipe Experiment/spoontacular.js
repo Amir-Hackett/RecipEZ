@@ -1,7 +1,7 @@
 var searchInput = "";
-var submitRecipe = document.getElementById("submit-btn");
-var recipeContainer = document.querySelector('#recipeContainer') 
-var searchResultsContainer = document.querySelector('#recipeSearchResults')
+const submitRecipe = document.getElementById("submit-btn");
+const recipeContainer = document.querySelector('#recipeContainer'); 
+const searchResultsContainer = document.getElementById("recipeSearchResults");
 var recipeSearchArr = [];
 
 function spoontacularAPI(){
@@ -22,9 +22,10 @@ function spoontacularAPI(){
 // loads cards based on the search parameters the user selects.
 function loadCards(){
 
-  console.log(recipeSearchArr);
+  // console.log(recipeSearchArr);
   var recipe = recipeSearchArr[0].searchResults[0].results;
   console.log(recipe);
+  console.log(searchResultsContainer)
   
 
   for (var i = 0; i < 3; i++) {
@@ -55,7 +56,7 @@ function loadCards(){
     // concatenate all the variables into a fetch request
     // return results to the recipe array that displays search results
 
-    
+
 // event listener for the quick search
 $("#submit-btn").click(function () {
   searchInput = $(this).siblings("#searchInput").val().toLowerCase();
