@@ -80,16 +80,16 @@
       
 
       <!-- advanced search for recipes -->
-        <details>
+        <details style="margin: 25px;">
           <summary> Advanced Search Options:</summary>
-          <form name="advanced-recipe-search">
+          <form name="advanced-recipe-search" action="">
           <h4>Any fields left blank will not be used in the search parameters.</h4>
           <!-- same parameter as general search -->
           <label for="key-word">Search Key Word</label>
           <input id="key-word" type="text" name="key-word" placeholder="General search terms">
             <br/>
           <!-- include cuisine type search - make this one a drop down menu -->
-            <details>
+            <details id="cuisine">
               <summary>Select any specific cuisine types you would like to search for</summary>
               <label for="african">African</label>
               <input id="african" type="checkbox" name="african"><br/>
@@ -285,8 +285,10 @@
               <option value="time">Time</option>
               <option value="random">Random</option>
               <option value="calories">Calories</option>
-              <button id="adv-search-btn">Search</button>
+              
             </select>
+            <br/>
+            <button type="button"  id="adv-search-btn">Search</button>
           </form>
         </details>
         
