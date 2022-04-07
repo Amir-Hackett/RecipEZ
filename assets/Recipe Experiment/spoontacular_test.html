@@ -68,27 +68,257 @@
       </p>
     </div>
 
-    <!-- search form -->
-    <div>
-      <button>
-        <label for="sort">Sort By:</label>
-        <select name="sort" id="sort">
-          <option value="recipe">Recipe</option>
-          <option value="drink">Drink</option>
-          <input type="text" id="sort" name="sort" placeholder="What are you looking for?">
-        </select>
-        <br>
-        
-        <button id="submit-btn">submit</button>
+    
+      <!-- quick search form -->
+                <label for="sort">Quick Search:</label>
+          <select name="sort" id="sort">
+            <option value="recipe">Recipe</option>
+            <option value="drink">Drink</option>
+            <input type="text" id="searchInput" name="sort" placeholder="What would you like to make?">
+          </select>
+          <button id="submit-btn">Search</button>
       
-    </div>
+
+      <!-- advanced search for recipes -->
+        <details>
+          <summary> Advanced Search Options:</summary>
+          <form name="advanced-recipe-search">
+          <h4>Any fields left blank will not be used in the search parameters.</h4>
+          <!-- same parameter as general search -->
+          <label for="key-word">Search Key Word</label>
+          <input id="key-word" type="text" name="key-word" placeholder="General search terms">
+            <br/>
+          <!-- include cuisine type search - make this one a drop down menu -->
+            <details>
+              <summary>Select any specific cuisine types you would like to search for</summary>
+              <label for="african">African</label>
+              <input id="african" type="checkbox" name="african"><br/>
+
+              <label for="american">American</label>
+              <input id="american" type="checkbox" name="american"> <br/>
+
+              <label for="british">British</label>
+              <input id="british" type="checkbox" name="british"> <br/>
+
+              <label for="cajun">Cajun</label>
+              <input id="cajun" type="checkbox" name="cajun"> <br/>
+
+              <label for="caribbean">Caribbean</label>
+              <input id="caribbean" type="checkbox" name="caribbean"> <br/>
+
+              <label for="chinese">Chinese</label>
+              <input id="chinese" type="checkbox" name="chinese"> <br/>
+
+              <label for="eastern-european">Eastern European</label>
+              <input id="eastern-european" type="checkbox" name="eastern-european"> <br/>
+
+              <label for="european">European</label>
+              <input id="european" type="checkbox" name="european"> <br/>
+
+              <label for="french">French</label>
+              <input id="french" type="checkbox" name="french"> <br/>
+
+              <label for="german">German</label>
+              <input id="german" type="checkbox" name="german"> <br/>
+
+              <label for="greek">Greek</label>
+              <input id="greek" type="checkbox" name="greek"> <br/>
+
+              <label for="irish">Irish</label>
+              <input id="irish" type="checkbox" name="irish"> <br/>
+
+              <label for="italian">Italian</label>
+              <input id="italian" type="checkbox" name="italian"> <br/>
+
+              <label for="japanese">Japanese</label>
+              <input id="japanese" type="checkbox" name="japanese"> <br/>
+
+              <label for="jewish">Jewish</label>
+              <input id="jewish" type="checkbox" name="jewish"> <br/>
+
+              <label for="korean">Korean</label>
+              <input id="korean" type="checkbox" name="korean"><br/> 
+
+              <label for="latin-american">Latin American</label>
+              <input id="latin-american" type="checkbox" name="latin-american"><br/> 
+
+              <label for="mediterranean">Mediterranean</label>
+              <input id="mediterranean" type="checkbox" name="mediterranean"><br/> 
+
+              <label for="mexican">Mexican</label>
+              <input id="mexican" type="checkbox" name="mexican"><br/> 
+
+              <label for="middle-eastern">Middle Eastern</label>
+              <input id="middle-eastern" type="checkbox" name="middle-eastern"><br/> 
+
+              <label for="nordic">Nordic</label>
+              <input id="nordic" type="checkbox" name="nordic"><br/> 
+
+              <label for="southern">Southern</label>
+              <input id="southern" type="checkbox" name="southern"><br/> 
+
+              <label for="thai">Thai</label>
+              <input id="thai" type="checkbox" name="thai"><br/> 
+
+              <label for="vietnamese">Vietnamese</label>
+              <input id="vietnamese" type="checkbox" name="vietnamese"><br/> 
+            <br/>
+            </details>
+          
+          <!-- intolerance's/allergies make this one a checkbox or radial selection type -->
+            <details>
+              <summary>Select any ingredients you would like to exclude for allergies.</summary>
+              <label for="dairy">Dairy</label>
+              <input id="dairy" type="checkbox" name="dairy"><br/> 
+
+              <label for="egg">Egg</label>
+              <input id="egg" type="checkbox" name="egg"><br/> 
+
+              <label for="gluten">Gluten</label>
+              <input id="gluten" type="checkbox" name="gluten"><br/> 
+
+              <label for="grain">Grain</label>
+              <input id="grain" type="checkbox" name="grain"><br/> 
+
+              <label for="peanut">Peanut</label>
+              <input id="peanut" type="checkbox" name="peanut"><br/> 
+
+              <label for="seafood">Seafood</label>
+              <input id="seafood" type="checkbox" name="seafood"><br/> 
+
+              <label for="sesame">Sesame</label>
+              <input id="sesame" type="checkbox" name="sesame"><br/> 
+
+              <label for="shellfish">Shellfish</label>
+              <input id="shellfish" type="checkbox" name="shellfish"><br/> 
+
+              <label for="soy">Soy</label>
+              <input id="soy" type="checkbox" name="soy"><br/> 
+
+              <label for="sulfite">Sulfite</label>
+              <input id="sulfite" type="checkbox" name="sulfite"><br/> 
+
+              <label for="tree-nut">Tree Nut</label>
+              <input id="tree-nut" type="checkbox" name="tree-nut"><br/> 
+
+              <label for="wheat">Wheat</label>
+              <input id="wheat" type="checkbox" name="wheat"><br/> 
+            </details>
+          <!-- include ingredients, search for recipes containing specific ingredients -->
+          <label for="include-ingredients">Ingredients to include</label>
+          <input id="include-ingredients" type="text" name="include-ingredients" placeholder="Chicken, Broccoli, Carrots, ect.">
+            <br/>
+          <!-- exclude ingredients - anything the recipe must not have -->
+          <label for="exclude-ingredients">Ingredients to exclude</label>
+          <input id="exclude-ingredients" type="text" name="exclude-ingredients" placeholder="Anything you dont want the recipes to include">
+            <br/>
+          <!-- meal type - check boxes or buttons of some kind -->
+            <details>
+              <summary>Meal Types</summary>
+
+              <label for="main-course">Main Course</label>
+              <input id="main-course" type="checkbox" name="main-course"><br/> 
+
+              <label for="side-dish">Side Dish</label>
+              <input id="side-dish" type="checkbox" name="side-dish"><br/> 
+
+              <label for="dessert">Dessert</label>
+              <input id="dessert" type="checkbox" name="dessert"><br/> 
+
+              <label for="appetizer">Appetizer</label>
+              <input id="appetizer" type="checkbox" name="appetizer"><br/> 
+
+              <label for="salad">Salad</label>
+              <input id="salad" type="checkbox" name="salad"><br/> 
+
+              <label for="bread">Bread</label>
+              <input id="bread" type="checkbox" name="bread"><br/> 
+
+              <label for="breakfast">Breakfast</label>
+              <input id="breakfast" type="checkbox" name="breakfast"><br/> 
+
+              <label for="soup">soup</label>
+              <input id="soup" type="checkbox" name="soup"><br/> 
+
+              <label for="beverage">Beverage</label>
+              <input id="beverage" type="checkbox" name="beverage"><br/> 
+
+              <label for="sauce">Sauce</label>
+              <input id="sauce" type="checkbox" name="sauce"><br/> 
+
+              <label for="marinade">Marinade</label>
+              <input id="marinade" type="checkbox" name="marinade"><br/> 
+
+              <label for="fingerfood">Finger Food</label>
+              <input id="fingerfood" type="checkbox" name="fingerfood"><br/> 
+
+              <label for="snack">Snack</label>
+              <input id="snack" type="checkbox" name="snack"><br/> 
+
+              <label for="drink">Drink</label>
+              <input id="drink" type="checkbox" name="drink"><br/> 
+            </details>
+          <!-- Max prep time - input field that only accepts numbers in minutes -->
+          <label for="max-prep">Max prep time (in minutes)</label>
+          <input id="max-prep" type="text" name="max-prep" placeholder="Example: 30">
+            <br/>
+          <!-- max carbs - numerical input in grams -->
+          <label for="max-carbs">Max Carbs</label>
+          <input id="max-carbs" type="text" name="max-carbs" placeholder="Maximum amount of carbs in grams">
+            <br/>
+          <!-- max calories - numerical input field -->
+          <label for="max-cal">Max Calories</label>
+          <input id="max-cal" type="text" name="max-cal" placeholder="Max number of calories per serving">
+            <br/>
+          <!-- max sugar -->
+          <label for="max-sugar">Max Sugar</label>
+          <input id="max-sugar" type="text" name="max-sugar" placeholder="Max sugar per serving (grams)">
+            <br/>
+          <!-- number of results to return between 1 and 100 -->
+          <label for="max-results">How many recipes to return</label>
+          <input id="max-results" type="text" name="max-results" placeholder="Number of recipes from 1-100">
+            <br/>
+          <!-- sort results option - make this a drop down menu -->
+          <label for="sort">Sort Results By:</label>
+            <select name="sort" id="sort">
+              <option value="popularity">Popularity</option>
+              <option value="time">Time</option>
+              <option value="random">Random</option>
+              <option value="calories">Calories</option>
+              <button id="adv-search-btn">Search</button>
+            </select>
+          </form>
+        </details>
+        
+    <!-- featured or favorite recipes that generate when the page loads 
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
+        cards load here
+      </div>
+    </div>-->
 
     <!-- recipe cards -->
     <div class="container columns" id="recipeContainer">
-      <div class="column is-full" id="recipeSearchResults">
+      <div class="container columns is-full" id="recipeSearchResults">
         <!-- cards load here -->
       </div>
     </div>
+
+    <!-- drink cards 
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
+        cards load here
+      </div>
+    </div>-->
+
+    <!-- spare 
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
+        <cards load here
+      </div>
+    </div>-->
+
+
     <!-- footer -->
     <footer class="footer">
       <div class="container">
@@ -102,6 +332,8 @@
               <li><a href="#">Contact Us</a></li>
             </ul>
           </div>
+        </div>
+      </div>
              
 
     </footer>
