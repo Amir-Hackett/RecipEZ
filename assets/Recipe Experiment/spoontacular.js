@@ -60,6 +60,14 @@ function loadCards(){
     // concatenate all the variables into a fetch request
     // return results to the recipe array that displays search results
 
+function advSearchFunction(data) {
+  var searchInput = data;
+  var keyWord = searchInput.siblings('#key-word').val().toLowerCase();
+  var cuisine = searchInput.siblings('#cuisine')[0].children;
+  console.log(keyWord);
+  console.log(cuisine);
+}
+
 
 // event listener for the quick search
 $("#submit-btn").click(function () {
@@ -75,6 +83,8 @@ $("#submit-btn").click(function () {
 });
 
 //event listener for the advanced search form (food only)
-$("adv-search-btn").click(function(){
-  advSearchFunction();
+$("#adv-search-btn").click(function(){
+  var data = $(this);
+  advSearchFunction(data);
+ 
 });
