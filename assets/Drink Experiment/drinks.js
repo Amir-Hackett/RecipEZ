@@ -1,7 +1,7 @@
 var searchInput = "";
-const submitRecipe = document.getElementById("submit-btn");
-const recipeContainer = document.querySelector('#drinkContainer'); 
-const searchResultsContainer = document.getElementById("drinkSearchResults");
+const submitDrink = document.getElementById("submit-btn");
+const drinkContainer = document.querySelector('#drinkContainer'); 
+const searchDrinkResultsContainer = document.getElementById("drinkSearchResults");
 var recipeSearchArr = [];
 
 function getCocktail(){
@@ -13,7 +13,6 @@ function getCocktail(){
           response.status);
       return;
       }
- 
       // Examine the text in the response
       response.json().then(function(data) {
       console.log(data);
@@ -106,8 +105,13 @@ $("#submit-btn").click(function () {
   if (selector === 'recipe'){
     spoontacularAPI();
   } else if (selector === 'drink'){
-    console.log('call the drink API')
+    getCocktail();
   } else {
     console.log('nothing gets called')
   }
+});
+
+//event listener for the advanced search form (food only)
+$("adv-search-btn").click(function(){
+  advSearchFunction();
 });
