@@ -52,10 +52,10 @@ function loadCards(data){
   for (var i = 1; i < 3; i++) {
     for(var x = 0; x < data.drinks.length; x++){
       var cocktailIngredient = data.drinks[x]['strIngredient' + i]
-     var drinkName = document.getElementsByTagName("h4")
-     var ingredient = document.createElement("p")
-     ingredient.innerHTML = cocktailIngredient
-     drinkName.appendChild(ingredient)
+    //  var drinkName = document.getElementsByTagName("h4")
+    //  var ingredient = document.createElement("p")
+    //  ingredient.innerHTML = cocktailIngredient
+    //  drinkName.appendChild(ingredient)
     var cocktail = data;
       console.log(cocktailIngredient)
     if(!cocktailIngredient){
@@ -74,8 +74,17 @@ function loadCards(data){
           <img src="${cocktail.drinks[x].strDrinkThumb}"/>
           <h4>${cocktail.drinks[x].strDrink}</h4>
           <p>
-            ${data.drinks[x]['strIngredient' + i]}
+            ${data.drinks[x]['strIngredient' + "1" ]}
           </p>
+          <p>
+          ${data.drinks[x]['strIngredient' + "2"]}
+        </p>
+        <p>
+        ${data.drinks[x]['strIngredient' + "3"]}
+      </p>
+      <p>
+      ${data.drinks[x]['strIngredient' + "4"]}
+    </p>
           <!--<p><a href="${cocktail.drinks[x].strMeasure1}">See Full Recipe</a></p>-->
         </div>
       </div>
