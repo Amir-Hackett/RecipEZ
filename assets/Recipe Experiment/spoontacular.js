@@ -4,8 +4,6 @@ var recipeContainer = document.querySelector('#recipeContainer')
 var searchResultsContainer = document.querySelector('#recipeSearchResults')
 var recipeSearchArr = [];
 
-
-
 function spoontacularAPI(){
     //spoontacularAPI Key
     var apiKey = "33e1a2adb44145efa8cd514a15f3d98c"
@@ -14,20 +12,18 @@ function spoontacularAPI(){
     fetch(apiURL)
     .then(function(response){
         response.json().then(function(data){
-          recipeSearchArr.push(data);          
-        }); 
+          recipeSearchArr.push(data);
+        }).then(function() {
+          loadCards();
+        }) 
     })
-    
 }
-
-
-
 
 function loadCards(){
 
-  spoontacularAPI()
   console.log(recipeSearchArr);
   var recipe = recipeSearchArr[0].searchResults[0].results;
+  console.log(recipe);
   
 
   for (var i = 0; i < 3; i++) {
@@ -56,10 +52,16 @@ function loadCards(){
 
 $("#submit-btn").click(function () {
   searchInput = $(this).siblings("#searchInput").val().toLowerCase();
-  console.log(searchInput);
-  if (searchInput != null) {
-    loadCards();
-    }
+  var selector = $(this).siblings('#sort').val();
+  if (selector === 'recipe'){
+    spoontacularAPI();
+  } else if (selector === 'drink'){
+    console.log('call the drink API')
+  } else {
+    console.log('nothing gets called')
+  }
+    
+    
 });
 
 
