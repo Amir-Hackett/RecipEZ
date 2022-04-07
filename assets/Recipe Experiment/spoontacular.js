@@ -63,9 +63,18 @@ function loadCards(){
 function advSearchFunction(data) {
   var searchInput = data;
   var keyWord = searchInput.siblings('#key-word').val().toLowerCase();
-  var cuisine = searchInput.siblings('#cuisine')[0].children;
-  console.log(keyWord);
-  console.log(cuisine);
+  var cuisineOptions = searchInput.siblings('#cuisine')[0].children;
+  var cuisineString = '';
+
+  for (var i = 0; i < cuisineOptions.length; i++){
+    if (cuisineOptions[i].checked){
+      let checkedOption = cuisineOptions[i].previousElementSibling.innerHTML;
+      cuisineString += checkedOption;
+      console.log(cuisineOptions[i].previousElementSibling.innerHTML);
+    }
+  }
+  // console.log(keyWord);
+  console.log(cuisineString);
 }
 
 
