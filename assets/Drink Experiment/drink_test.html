@@ -7,7 +7,7 @@
     <title>RecipEZ</title>
     <link
       rel="shortcut icon"
-      href="../RecipEZ/assets/images/favicon.png"
+      href="../images/favicon.png"
       type="image/x-icon"
     />
     <link
@@ -25,7 +25,7 @@
       href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
     />
     <!-- landing css -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/landing.css" />
+    <link rel="stylesheet" type="text/css" href="../css/landing.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css"
@@ -39,7 +39,7 @@
             <div class="navbar-brand">
               <a class="navbar-item" href="../">
                 <img
-                  src="./assets/images/recipEZ3.png"
+                  src="../images/recipEZ.png"
                   alt="RecipEZ logo"
                 />
               </a>
@@ -68,78 +68,45 @@
       </p>
     </div>
 
-    <!-- search form -->
-    <div>
-      <form>
-        <label for="sort">Sort By:</label>
-        <select name="sort" id="sort">
-          <option value="recipe">Recipe</option>
-          <option value="drink">Drink</option>
-          <input type="text" id="sort" name="sort">
-        </select>
-        <br>
-        <input id="submit-btn" type="submit" value="Submit">
-      </form>
-    </div>
+    
+      <!-- quick search form -->
+                <label for="sort">Quick Search:</label>
+          <select name="sort" id="sort">
+            <option value="recipe">Recipe</option>
+            <option value="drink">Drink</option>
+            <input type="text" id="searchInput" name="sort" placeholder="What would you like to make?">
+          </select>
+          <button id="submit-btn">Search</button>
+        
+    <!-- featured or favorite recipes that generate when the page loads 
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
+        cards load here
+      </div>
+    </div>-->
 
     <!-- recipe cards -->
-    <section class="container">
-      <div class="columns features">
-        <!-- first card -->
-        <div class="column is-4">
-          <div class="card is-shady">
-            <div class="card-image has-text-centered">
-              <i class="fa-solid fa-utensils"></i>
-            </div>
-            
-            <div class="card-content">
-              <div class="content">
-                <h4>Turkey Sandwich</h4>
-                <p>
-                  A simple sandwich for the lazy person.
-                </p>
-                <p><a href="#">See Full Recipe</a></p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- second card -->
-        <div class="column is-4">
-          <div class="card is-shady">
-            <div class="card-image has-text-centered">
-              <i class="fa-duotone fa-utensils"></i>
-            </div>
-            <div class="card-content">
-              <div class="content">
-                <h4>Chicken Noodle Soup</h4>
-                <p>
-                  Feeling sick? Try this one.
-                </p>
-                <p><a href="#">See Full Recipe</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- third card -->
-        <div class="column is-4">
-          <div class="card is-shady">
-            <div class="card-image has-text-centered">
-              <i class="fa fa-burger"></i>
-            </div>
-            <div class="card-content">
-              <div class="content">
-                <h4>Greek Salad</h4>
-                <p>
-                  For the feta cheese lovers.
-                </p>
-                <p><a href="#">See Full Recipe</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="container columns" id="recipeContainer">
+      <div class="container columns is-full" id="recipeSearchResults">
+        <!-- cards load here -->
       </div>
-      
+    </div>
+
+    <!-- drink cards -->
+    <div class="container columns" id="drinkContainer">
+      <div class="column is-full" id="drinkSearchResults">
+        <!-- cards load here -->
+      </div>
+    </div>
+
+    <!-- spare 
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
+        <cards load here
+      </div>
+    </div>-->
+
+
     <!-- footer -->
     <footer class="footer">
       <div class="container">
@@ -153,11 +120,13 @@
               <li><a href="#">Contact Us</a></li>
             </ul>
           </div>
+        </div>
+      </div>
              
 
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="drinks.js"></script>
+    <script src="../Recipe Experiment/spoontacular.js"></script>
   </body>
 </html>

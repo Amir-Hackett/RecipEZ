@@ -1,5 +1,8 @@
-//var drinkName = document.querySelector(".content")
-var searchResultsContainer = document.querySelector('.content')
+var searchInput = "";
+const submitRecipe = document.getElementById("submit-btn");
+const recipeContainer = document.querySelector('#drinkContainer'); 
+const searchResultsContainer = document.getElementById("drinkSearchResults");
+var recipeSearchArr = [];
 
 function getCocktail(){
   fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
@@ -95,3 +98,16 @@ function loadCards(data){
   }
   }
 }
+
+// event listener for the quick search
+$("#submit-btn").click(function () {
+  searchInput = $(this).siblings("#searchInput").val().toLowerCase();
+  var selector = $(this).siblings('#sort').val();
+  if (selector === 'recipe'){
+    spoontacularAPI();
+  } else if (selector === 'drink'){
+    console.log('call the drink API')
+  } else {
+    console.log('nothing gets called')
+  }
+});
