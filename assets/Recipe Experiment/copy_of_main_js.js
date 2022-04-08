@@ -5,7 +5,8 @@ const drinkContainer = document.querySelector('#drinkContainer');
 const searchDrinkResultsContainer = document.getElementById("drinkSearchResults");
 const recipeContainer = document.querySelector('#recipeContainer'); 
 const searchResultsContainer = document.getElementById("recipeSearchResults");
-var recipeSearchArr = [];
+var searchResultsArr = [];
+
 
 // calls spoontacular recipe api
 function spoontacularAPI(){
@@ -16,9 +17,9 @@ function spoontacularAPI(){
   fetch(apiURL)
   .then(function(response){
       response.json().then(function(data){
-        recipeSearchArr.push(data);
+        searchResultsArr.push(data);
       }).then(function() {
-        console.log(recipeSearchArr)
+        console.log(searchResultsArr)
         loadFoodCards();
       }) 
   })
@@ -37,7 +38,7 @@ function getCocktail(){
       }
       // Examine the text in the response
       response.json().then(function(data) {
-      console.log(data);
+      // console.log(data);
       loadDrinkCards(data)
       });
   })
@@ -50,8 +51,8 @@ function getCocktail(){
 // loads cards based on the search parameters the user selects.
 function loadFoodCards(){
 
-  var recipe = recipeSearchArr[0].searchResults[0].results;
-  console.log(recipe);
+  var recipe = searchResultsArr[0].searchResults[0].results;
+  // console.log(recipe);
   searchResultsContainer.innerHTML = '';
   for (var i = 0; i < 3; i++) {
   
@@ -78,40 +79,61 @@ function loadFoodCards(){
     </div>
     `
   }
- recipeSearchArr = [];
+ searchResultsArr = [];
 }
 
 function loadDrinkCards(data){
-  for(var i = 0; i < data.drinks.length; i+=4){
-    var cocktail = data;
-
- searchResultsContainer.innerHTML += `
+  var drinks = data.drinks;
+  console.log(data)
+  for(var i = 0; i < drinks.length; i++){
+    let strMeasureArr = [];
+    let strIngredientArr = [];
+    let formulaHTML = '';
+    
+    for(var x = 1; x < 15; x++){
+      var measure = drinks[i]['strMeasure'+[x]];
+        if (measure != null) {
+        strMeasureArr.push(measure);
+      }
+    } 
+    for(var y = 1; y < 15; y++){
+      var ingredient = drinks[i]['strIngredient'+[y]];
+      if(ingredient != null){
+        strIngredientArr.push(ingredient);
+      }
+    }
   
-    <div class="card-content">
-      <div class="content">
-        <img src="${cocktail.drinks[i].strDrinkThumb}"/>
-        <h4>${cocktail.drinks[i].strDrink}</h4>
-        <p>
-          ${data.drinks[i]['strIngredient' + "1" ]} : ${data.drinks[i]['strMeasure1']}
-        </p>
-        <p>
-        ${data.drinks[i]['strIngredient' + "2"]} : ${data.drinks[i]['strMeasure2']}
-      </p>
+    console.log(strMeasureArr);
+    console.log(strIngredientArr);
+    for(var z = 0; z < strIngredientArr.length; z++){
+      // console.log('made it into z loop')
+      formulaHTML += `
       <p>
-      ${data.drinks[i]['strIngredient' + "3"]} : ${data.drinks[i]['strMeasure3']}
-    </p>
-    <p>
-    ${data.drinks[i]['strIngredient' + "4"]} : ${data.drinks[i]['strMeasure4']}
-  </p>
-  <p>
-  ${data.drinks[i]['strInstructions']}
-</p>
-      </div>
-    </div>
-  </div>
+      ${strIngredientArr[z]} : ${strMeasureArr[z]}
+      </p>
+      `
+    }
+    console.log(formulaHTML)
 
-  `
-}
+  searchResultsContainer.innerHTML += `
+    
+    <div class="card is-shady column is-4">
+      <div class="card-image has-text-centered">
+        <i class="fa-solid fa-utensils"></i>
+      </div>
+        <div class="card-content">
+          <div class="content">
+            <img src="${drinks[i].strDrinkThumb}"/>
+            <h4>${drinks[i].strDrink}</h4>
+            ${formulaHTML}
+          </div>
+          <button>Save Drink</button>
+        </div>
+    </div>
+
+      `
+  }
+  
 }
 
 //advanced search function
@@ -145,9 +167,9 @@ function advSearchFunction(data) {
 //   fetch(apiURL)
 //   .then(function(response){
 //       response.json().then(function(data){
-//         recipeSearchArr.push(data);
+//         searchResultsArr.push(data);
 //       }).then(function() {
-//         console.log(recipeSearchArr)
+//         console.log(searchResultsArr)
 //         loadCards();
 //       }) 
 //   })
