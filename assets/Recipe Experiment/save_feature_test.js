@@ -4,6 +4,7 @@ const recipeContainer = document.querySelector('#recipeContainer');
 const searchResultsContainer = document.getElementById("recipeSearchResults");
 const saveFavoriteBtn = document.getElementById("save-favorite");
 var recipeSearchArr = [];
+var savedRecipeArr = [];
 
 function spoontacularAPI(){
     //spoontacularAPI Key
@@ -61,8 +62,22 @@ function loadCards(){
 
 //save favorite recipe function
 function saveRecipes(target) {
-  console.log(target.innerHTML)
+  //declare variable of saved recipe content
+  var savedRecipe = target.innerHTML;
+  savedRecipeArr.push(savedRecipe);
+  console.log(savedRecipeArr);
+
+
+//save recipe content to local storage
+  localStorage.setItem('Recipe', JSON.stringify(savedRecipeArr));
+
+//display saved recipe content from local storage
+  var retrievedObject = localStorage.getItem('Recipe');
+
+  console.log('retrievedObject: ', JSON.parse(retrievedObject));
+
 }
+
 
 // function for building the fetch request from the advanced search
     // collect all variables that have an input or true value and declare them all as local variables
@@ -89,7 +104,6 @@ $("adv-search-btn").click(function(){
 });
 
 // save favorite click listener
-// event listener for save button
 $("#recipeSearchResults").click(function(event){
   let target = event.target.parentElement;
   saveRecipes(target);
