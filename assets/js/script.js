@@ -84,6 +84,7 @@ function loadFoodCards(){
 
 function loadDrinkCards(){
   var drinks = searchResultsArr[0].drinks;
+  searchResultsContainer.innerHTML = '';
   console.log(drinks)
   //loop through data/drinks array 
   for(var i = 0; i < 3; i++){
