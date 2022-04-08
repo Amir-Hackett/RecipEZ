@@ -7,7 +7,7 @@
     <title>RecipEZ</title>
     <link
       rel="shortcut icon"
-      href="./assets/images/favicon.png"
+      href="../images/favicon.png"
       type="image/x-icon"
     />
     <link
@@ -24,12 +24,13 @@
       rel="stylesheet"
       href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
     />
+    <!-- landing css -->
+    <link rel="stylesheet" type="text/css" href="../css/landing.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css"
     />
-    <!-- landing css -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/landing.css" />
+    
   </head>
   <body>
     <section class="hero is-info is-medium is-bold">
@@ -39,7 +40,7 @@
             <div class="navbar-brand">
               <a class="navbar-item" href="../">
                 <img
-                  src="./assets/images/recipEZ.png"
+                  src="../images/recipEZ.png"
                   alt="RecipEZ logo"
                 />
               </a>
@@ -80,88 +81,88 @@
       
 
       <!-- advanced search for recipes -->
-        <details style="margin: 25px;">
+        <details>
           <summary> Advanced Search Options:</summary>
-          <form name="advanced-recipe-search" action="">
+          <form name="advanced-recipe-search">
           <h4>Any fields left blank will not be used in the search parameters.</h4>
           <!-- same parameter as general search -->
           <label for="key-word">Search Key Word</label>
           <input id="key-word" type="text" name="key-word" placeholder="General search terms">
             <br/>
           <!-- include cuisine type search - make this one a drop down menu -->
-            <details id="cuisine">
+            <details>
               <summary>Select any specific cuisine types you would like to search for</summary>
               <label for="african">African</label>
-              <input id="african" type="radio" name="cuisine"><br/>
+              <input id="african" type="checkbox" name="african"><br/>
 
               <label for="american">American</label>
-              <input id="american" type="radio" name="cuisine"> <br/>
+              <input id="american" type="checkbox" name="american"> <br/>
 
               <label for="british">British</label>
-              <input id="british" type="radio" name="cuisine"> <br/>
+              <input id="british" type="checkbox" name="british"> <br/>
 
               <label for="cajun">Cajun</label>
-              <input id="cajun" type="radio" name="cuisine"> <br/>
+              <input id="cajun" type="checkbox" name="cajun"> <br/>
 
               <label for="caribbean">Caribbean</label>
-              <input id="caribbean" type="radio" name="cuisine"> <br/>
+              <input id="caribbean" type="checkbox" name="caribbean"> <br/>
 
               <label for="chinese">Chinese</label>
-              <input id="chinese" type="radio" name="cuisine"> <br/>
+              <input id="chinese" type="checkbox" name="chinese"> <br/>
 
               <label for="eastern-european">Eastern European</label>
-              <input id="eastern-european" type="radio" name="cuisine"> <br/>
+              <input id="eastern-european" type="checkbox" name="eastern-european"> <br/>
 
               <label for="european">European</label>
-              <input id="european" type="radio" name="cuisine"> <br/>
+              <input id="european" type="checkbox" name="european"> <br/>
 
               <label for="french">French</label>
-              <input id="french" type="radio" name="cuisine"> <br/>
+              <input id="french" type="checkbox" name="french"> <br/>
 
               <label for="german">German</label>
-              <input id="german" type="radio" name="cuisine"> <br/>
+              <input id="german" type="checkbox" name="german"> <br/>
 
               <label for="greek">Greek</label>
-              <input id="greek" type="radio" name="cuisine"> <br/>
+              <input id="greek" type="checkbox" name="greek"> <br/>
 
               <label for="irish">Irish</label>
-              <input id="irish" type="radio" name="cuisine"> <br/>
+              <input id="irish" type="checkbox" name="irish"> <br/>
 
               <label for="italian">Italian</label>
-              <input id="italian" type="radio" name="cuisine"> <br/>
+              <input id="italian" type="checkbox" name="italian"> <br/>
 
               <label for="japanese">Japanese</label>
-              <input id="japanese" type="radio" name="cuisine"> <br/>
+              <input id="japanese" type="checkbox" name="japanese"> <br/>
 
               <label for="jewish">Jewish</label>
-              <input id="jewish" type="radio" name="cuisine"> <br/>
+              <input id="jewish" type="checkbox" name="jewish"> <br/>
 
               <label for="korean">Korean</label>
-              <input id="korean" type="radio" name="cuisine"><br/> 
+              <input id="korean" type="checkbox" name="korean"><br/> 
 
               <label for="latin-american">Latin American</label>
-              <input id="latin-american" type="radio" name="cuisine"><br/> 
+              <input id="latin-american" type="checkbox" name="latin-american"><br/> 
 
               <label for="mediterranean">Mediterranean</label>
-              <input id="mediterranean" type="radio" name="cuisine"><br/> 
+              <input id="mediterranean" type="checkbox" name="mediterranean"><br/> 
 
               <label for="mexican">Mexican</label>
-              <input id="mexican" type="radio" name="cuisine"><br/> 
+              <input id="mexican" type="checkbox" name="mexican"><br/> 
 
               <label for="middle-eastern">Middle Eastern</label>
-              <input id="middle-eastern" type="radio" name="cuisine"><br/> 
+              <input id="middle-eastern" type="checkbox" name="middle-eastern"><br/> 
 
               <label for="nordic">Nordic</label>
-              <input id="nordic" type="radio" name="cuisine"><br/> 
+              <input id="nordic" type="checkbox" name="nordic"><br/> 
 
               <label for="southern">Southern</label>
-              <input id="southern" type="radio" name="cuisine"><br/> 
+              <input id="southern" type="checkbox" name="southern"><br/> 
 
               <label for="thai">Thai</label>
-              <input id="thai" type="radio" name="cuisine"><br/> 
+              <input id="thai" type="checkbox" name="thai"><br/> 
 
               <label for="vietnamese">Vietnamese</label>
-              <input id="vietnamese" type="radio" name="cuisine"><br/> 
+              <input id="vietnamese" type="checkbox" name="vietnamese"><br/> 
             <br/>
             </details>
           
@@ -285,10 +286,8 @@
               <option value="time">Time</option>
               <option value="random">Random</option>
               <option value="calories">Calories</option>
-              
+              <button id="adv-search-btn">Search</button>
             </select>
-            <br/>
-            <button type="button"  id="adv-search-btn">Search</button>
           </form>
         </details>
         
@@ -303,15 +302,16 @@
     <div class="container columns" id="recipeContainer">
       <div class="container columns is-full" id="recipeSearchResults">
         <!-- cards load here -->
+        
       </div>
     </div>
 
-   <!-- drink cards -->
-   <div class="container columns" id="drinkContainer">
-    <div class="column is-full" id="drinkSearchResults">
-      <!-- cards load here -->
-    </div>
-  </div>
+    <!-- drink cards 
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
+        cards load here
+      </div>
+    </div>-->
 
     <!-- spare 
     <div class="container columns" id="">
@@ -341,6 +341,6 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="../Recipe Experiment/save_feature_test.js"></script>
   </body>
 </html>

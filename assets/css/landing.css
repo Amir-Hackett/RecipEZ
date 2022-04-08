@@ -21,6 +21,12 @@ html,body {
     background-color: #f5f5f5;
 }
 
+.hero-body {
+  background-image: url(../images/hero2.png);
+  height: 500px;
+  background-size: cover;
+}
+
   .hero-body {
       background-color: #2a4729;
   }
