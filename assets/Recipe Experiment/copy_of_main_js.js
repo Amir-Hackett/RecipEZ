@@ -84,6 +84,7 @@ function loadFoodCards(){
 
 function loadDrinkCards(){
   var drinks = searchResultsArr[0].drinks;
+  searchResultsContainer.innerHTML = '';
   console.log(drinks)
   //loop through data/drinks array 
   for(var i = 0; i < 3; i++){
@@ -141,24 +142,42 @@ function loadDrinkCards(){
 //advanced search function
 function advSearchFunction(data) {
   var searchInput = data;
-  var keyWord = searchInput.siblings('#key-word').val().toLowerCase();
+  var keyword = searchInput.siblings('#key-word').val().toLowerCase();
   var cuisineOptions = searchInput.siblings('#cuisine')[0].children;
   var cuisineString = '';
+  var intoleranceOptions = searchInput.siblings('#intolerance')[0].children;
+  var intoleranceString = '';
+  var includeIngredients = searchInput.siblings('#include-ingredients').val().toLowerCase()
+  var excludeIngredients = searchInput.siblings('#exclude-ingredients').val().toLowerCase()
+  var mealTypeOptions = '';
+  var mealTypeString = '';
 
-  for (var i = 0; i < cuisineOptions.length; i++){
+  for (let i = 0; i < cuisineOptions.length; i++){
     if (cuisineOptions[i].checked){
       let checkedOption = cuisineOptions[i].previousElementSibling.innerHTML;
       cuisineString += `${checkedOption},`;
-      console.log(cuisineOptions[i].previousElementSibling.innerHTML);
     }
   }
-  
-  var excludeItems = '';
+
+  for(let i = 0; i < intoleranceOptions.length; i++) {
+    if(intoleranceOptions[i].checked) {
+      let checkedOption = intoleranceOptions[i].previousElementSibling.innerHTML;
+      intoleranceString += `${checkedOption},`;
+    }
+  }
+
 
   
 
-  // console.log(keyWord);
-  console.log(data.siblings('#cuisine'));
+  
+
+
+  console.log(`keyword: ${keyword}`)
+  console.log(`cuisine: ${cuisineString}`);
+  console.log(`intolerance: ${intoleranceString}`);
+  console.log(`include ingredients: ${includeIngredients}`);
+  console.log(`exclude: ${excludeIngredients}`);
+
 }
 
 // function callFavorites() {
@@ -179,20 +198,15 @@ function advSearchFunction(data) {
 
 //save favorite recipe function
 function saveRecipes(recipeId) {
-  //declare variable of saved recipe content
-var saveRecipeId = recipeId
-
-//save recipe content to local storage
-  localStorage.setItem('Recipe', JSON.stringify(saveRecipeId));
-
-//display saved recipe content from local storage
-  // var retrievedObject = localStorage.getItem('Recipe');
-
-  // console.log('retrievedObject: ', JSON.parse(retrievedObject));
+  console.log(recipeId)
+  console.log('made it into the save recipes function')
 
 }
 
-function saveDrinks() {
+function saveDrinks(drinkId) {
+
+  console.log(drinkId)
+  console.log('made it into the save drinks function')
 
 }
 
@@ -227,7 +241,7 @@ $("#searchResults").click(function(event){
     // console.log(target.dataset.drinkid)
 
   } else if('recipeid' in target.dataset === true) {
-    let recipeId = target.dataset.recipeId
+    let recipeId = target.dataset.recipeid;
     saveRecipes(recipeId);
     // console.log(target.dataset.recipeid)
 
