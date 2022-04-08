@@ -98,7 +98,6 @@ function loadDrinkCards(){
       var measure = drinks[i]['strMeasure'+[x]];
         if (measure != null) {
         strMeasureArr.push(measure);
-        console.log(strMeasureArr)
       }
     } 
     //find all ingredient properties, if they have a value not equal to null push them to their respective array
@@ -140,42 +139,45 @@ function loadDrinkCards(){
   searchResultsArr = [];
 }
 
-//change dropdown to say search drinks
-document.getElementById("sort").onchange = function(){
-  dropDownChange()
-}
-function dropDownChange(){
-  var selector = document.getElementById("sort").value
-  if (selector === 'recipe'){
-    document.getElementById("searchInput").placeholder = "Search Recipes"
-  } else if (selector === 'drink'){
-    document.getElementById("searchInput").placeholder = "Search Drinks"
-  } else {
-    console.log('nothing gets called')
-  } 
-}
-
 //advanced search function
 function advSearchFunction(data) {
   var searchInput = data;
-  var keyWord = searchInput.siblings('#key-word').val().toLowerCase();
+  var keyword = searchInput.siblings('#key-word').val().toLowerCase();
   var cuisineOptions = searchInput.siblings('#cuisine')[0].children;
   var cuisineString = '';
+  var intoleranceOptions = searchInput.siblings('#intolerance')[0].children;
+  var intoleranceString = '';
+  var includeIngredients = searchInput.siblings('#include-ingredients').val().toLowerCase()
+  var excludeIngredients = searchInput.siblings('#exclude-ingredients').val().toLowerCase()
+  var mealTypeOptions = '';
+  var mealTypeString = '';
 
-  for (var i = 0; i < cuisineOptions.length; i++){
+  for (let i = 0; i < cuisineOptions.length; i++){
     if (cuisineOptions[i].checked){
       let checkedOption = cuisineOptions[i].previousElementSibling.innerHTML;
       cuisineString += `${checkedOption},`;
-      console.log(cuisineOptions[i].previousElementSibling.innerHTML);
     }
   }
-  
-  var excludeItems = '';
+
+  for(let i = 0; i < intoleranceOptions.length; i++) {
+    if(intoleranceOptions[i].checked) {
+      let checkedOption = intoleranceOptions[i].previousElementSibling.innerHTML;
+      intoleranceString += `${checkedOption},`;
+    }
+  }
+
 
   
 
-  // console.log(keyWord);
-  console.log(data.siblings('#cuisine'));
+  
+
+
+  console.log(`keyword: ${keyword}`)
+  console.log(`cuisine: ${cuisineString}`);
+  console.log(`intolerance: ${intoleranceString}`);
+  console.log(`include ingredients: ${includeIngredients}`);
+  console.log(`exclude: ${excludeIngredients}`);
+
 }
 
 // function callFavorites() {
@@ -219,6 +221,7 @@ $("#adv-search-btn").click(function(){
 $("#submit-btn").click(function() {
   searchInput = $(this).siblings("#searchInput").val().toLowerCase();
   var selector = $(this).siblings('#sort').val();
+
   if (selector === 'recipe'){
     spoontacularAPI();
   } else if (selector === 'drink'){
@@ -226,18 +229,7 @@ $("#submit-btn").click(function() {
   } else {
     console.log('nothing gets called')
   }
-  $("#searchInput").val('')
 });
-
-// ability to press enter for function
-var input = document.getElementById("searchInput")
-input.addEventListener("keyup", function(event){
-  // 13 is enter || return on keyboard
-  if (event.keyCode === 13){
-    event.preventDefault()
-    document.getElementById("submit-btn").click()
-  }
-})
 
 // food save favorite click listener
 $("#searchResults").click(function(event){

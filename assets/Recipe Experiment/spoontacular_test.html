@@ -166,46 +166,46 @@
             </details>
           
           <!-- intolerance's/allergies make this one a checkbox or radial selection type -->
-            <details>
+            <details id="intolerance">
               <summary>Select any ingredients you would like to exclude for allergies.</summary>
               <label for="dairy">Dairy</label>
-              <input id="dairy" type="checkbox" name="dairy"><br/> 
+              <input id="dairy" type="radio" name="dairy"><br/> 
 
               <label for="egg">Egg</label>
-              <input id="egg" type="checkbox" name="egg"><br/> 
+              <input id="egg" type="radio" name="egg"><br/> 
 
               <label for="gluten">Gluten</label>
-              <input id="gluten" type="checkbox" name="gluten"><br/> 
+              <input id="gluten" type="radio" name="gluten"><br/> 
 
               <label for="grain">Grain</label>
-              <input id="grain" type="checkbox" name="grain"><br/> 
+              <input id="grain" type="radio" name="grain"><br/> 
 
               <label for="peanut">Peanut</label>
-              <input id="peanut" type="checkbox" name="peanut"><br/> 
+              <input id="peanut" type="radio" name="peanut"><br/> 
 
               <label for="seafood">Seafood</label>
-              <input id="seafood" type="checkbox" name="seafood"><br/> 
+              <input id="seafood" type="radio" name="seafood"><br/> 
 
               <label for="sesame">Sesame</label>
-              <input id="sesame" type="checkbox" name="sesame"><br/> 
+              <input id="sesame" type="radio" name="sesame"><br/> 
 
               <label for="shellfish">Shellfish</label>
-              <input id="shellfish" type="checkbox" name="shellfish"><br/> 
+              <input id="shellfish" type="radio" name="shellfish"><br/> 
 
               <label for="soy">Soy</label>
-              <input id="soy" type="checkbox" name="soy"><br/> 
+              <input id="soy" type="radio" name="soy"><br/> 
 
               <label for="sulfite">Sulfite</label>
-              <input id="sulfite" type="checkbox" name="sulfite"><br/> 
+              <input id="sulfite" type="radio" name="sulfite"><br/> 
 
               <label for="tree-nut">Tree Nut</label>
-              <input id="tree-nut" type="checkbox" name="tree-nut"><br/> 
+              <input id="tree-nut" type="radio" name="tree-nut"><br/> 
 
               <label for="wheat">Wheat</label>
-              <input id="wheat" type="checkbox" name="wheat"><br/> 
+              <input id="wheat" type="radio" name="wheat"><br/> 
             </details>
           <!-- include ingredients, search for recipes containing specific ingredients -->
-          <label for="include-ingredients">Ingredients to include</label>
+          <label for="include-ingredients">Ingredients to include, list ingredients separated by a comma.</label>
           <input id="include-ingredients" type="text" name="include-ingredients" placeholder="Chicken, Broccoli, Carrots, ect.">
             <br/>
           <!-- exclude ingredients - anything the recipe must not have -->
@@ -299,21 +299,28 @@
       </div>
     </div>-->
 
-    <!-- recipe cards -->
+    <!-- search results -->
     <div class="container columns" id="recipeContainer">
-      <div class="container columns is-full" id="recipeSearchResults">
+      <div class="container columns is-full" id="searchResults">
         <!-- cards load here -->
       </div>
     </div>
 
-    <!-- drink cards 
+    <!-- random food cards 
     <div class="container columns" id="">
       <div class="column is-full" id="">
         cards load here
       </div>
     </div>-->
 
-    <!-- spare 
+    <!-- random drink cards 
+    <div class="container columns" id="">
+      <div class="column is-full" id="">
+        cards load here
+      </div>
+    </div>-->
+
+    <!-- spare, maybe for favorites
     <div class="container columns" id="">
       <div class="column is-full" id="">
         <cards load here
@@ -341,6 +348,6 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="../Recipe Experiment/spoontacular.js"></script>
+    <script src="../Recipe Experiment/copy_of_main_js.js"></script>
   </body>
 </html>
