@@ -140,6 +140,21 @@ function loadDrinkCards(){
   searchResultsArr = [];
 }
 
+//change dropdown to say search drinks
+document.getElementById("sort").onchange = function(){
+  dropDownChange()
+}
+function dropDownChange(){
+  var selector = document.getElementById("sort").value
+  if (selector === 'recipe'){
+    document.getElementById("searchInput").placeholder = "Search Recipes"
+  } else if (selector === 'drink'){
+    document.getElementById("searchInput").placeholder = "Search Drinks"
+  } else {
+    console.log('nothing gets called')
+  } 
+}
+
 //advanced search function
 function advSearchFunction(data) {
   var searchInput = data;
@@ -204,7 +219,6 @@ $("#adv-search-btn").click(function(){
 $("#submit-btn").click(function() {
   searchInput = $(this).siblings("#searchInput").val().toLowerCase();
   var selector = $(this).siblings('#sort').val();
-
   if (selector === 'recipe'){
     spoontacularAPI();
   } else if (selector === 'drink'){
@@ -212,7 +226,18 @@ $("#submit-btn").click(function() {
   } else {
     console.log('nothing gets called')
   }
+  $("#searchInput").val('')
 });
+
+// ability to press enter for function
+var input = document.getElementById("searchInput")
+input.addEventListener("keyup", function(event){
+  // 13 is enter || return on keyboard
+  if (event.keyCode === 13){
+    event.preventDefault()
+    document.getElementById("submit-btn").click()
+  }
+})
 
 // food save favorite click listener
 $("#searchResults").click(function(event){
