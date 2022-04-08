@@ -4,7 +4,7 @@ const submitRecipe = document.getElementById("submit-btn");
 const drinkContainer = document.querySelector('#drinkContainer'); 
 const searchDrinkResultsContainer = document.getElementById("drinkSearchResults");
 const recipeContainer = document.querySelector('#recipeContainer'); 
-const searchResultsContainer = document.getElementById("recipeSearchResults");
+const searchResultsContainer = document.getElementById("searchResults");
 var searchResultsArr = [];
 
 
@@ -19,7 +19,6 @@ function spoontacularAPI(){
       response.json().then(function(data){
         searchResultsArr.push(data);
       }).then(function() {
-        console.log(searchResultsArr)
         loadFoodCards();
       }) 
   })
@@ -38,8 +37,9 @@ function getCocktail(){
       }
       // Examine the text in the response
       response.json().then(function(data) {
-      // console.log(data);
-      loadDrinkCards(data)
+      searchResultsArr.push(data);
+      }).then(function() {
+        loadDrinkCards()
       });
   })
   .catch(function(err){
@@ -82,39 +82,37 @@ function loadFoodCards(){
  searchResultsArr = [];
 }
 
-function loadDrinkCards(data){
-  var drinks = data.drinks;
-  console.log(data)
-  for(var i = 0; i < drinks.length; i++){
+function loadDrinkCards(){
+  var drinks = searchResultsArr[0].drinks;
+  //loop through data/drinks array 
+  for(var i = 0; i < 3; i++){
     let strMeasureArr = [];
     let strIngredientArr = [];
     let formulaHTML = '';
-    
+    let dinkId = '';
+    //find all measure properties, if they have a value not equal to null push them to their respective array
     for(var x = 1; x < 15; x++){
       var measure = drinks[i]['strMeasure'+[x]];
         if (measure != null) {
         strMeasureArr.push(measure);
       }
     } 
+    //find all ingredient properties, if they have a value not equal to null push them to their respective array
     for(var y = 1; y < 15; y++){
       var ingredient = drinks[i]['strIngredient'+[y]];
       if(ingredient != null){
         strIngredientArr.push(ingredient);
       }
     }
-  
-    console.log(strMeasureArr);
-    console.log(strIngredientArr);
+    //generate recipe HTML from the ingredients and measure arrays
     for(var z = 0; z < strIngredientArr.length; z++){
-      // console.log('made it into z loop')
       formulaHTML += `
       <p>
       ${strIngredientArr[z]} : ${strMeasureArr[z]}
       </p>
       `
     }
-    console.log(formulaHTML)
-
+    //write html for drink cards and append them to the search container
   searchResultsContainer.innerHTML += `
     
     <div class="card is-shady column is-4">
@@ -122,7 +120,7 @@ function loadDrinkCards(data){
         <i class="fa-solid fa-utensils"></i>
       </div>
         <div class="card-content">
-          <div class="content">
+          <div class="content" id=>
             <img src="${drinks[i].strDrinkThumb}"/>
             <h4>${drinks[i].strDrink}</h4>
             ${formulaHTML}
@@ -133,7 +131,7 @@ function loadDrinkCards(data){
 
       `
   }
-  
+  searchResultsArr = [];
 }
 
 //advanced search function
@@ -203,6 +201,7 @@ $("#adv-search-btn").click(function(){
 $("#submit-btn").click(function() {
   searchInput = $(this).siblings("#searchInput").val().toLowerCase();
   var selector = $(this).siblings('#sort').val();
+
   if (selector === 'recipe'){
     spoontacularAPI();
   } else if (selector === 'drink'){
@@ -212,12 +211,13 @@ $("#submit-btn").click(function() {
   }
 });
 
-// save favorite click listener
-$("#recipeSearchResults").click(function(event){
+// food save favorite click listener
+$("#searchResults").click(function(event){
   let target = event.target.parentElement;
   console.log(target.dataset.recipeid)
   // saveRecipes(target);
 });
+
 
 //event listener for the advanced search form (food only)
 $("adv-search-btn").click(function(){
