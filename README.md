@@ -54,7 +54,7 @@
 <br>
 
 <h3 id="url">Website URL</h3>
-<a href="">Deployed Application</a>
+<a href="https://amir-hackett.github.io/RecipEZ/">Deployed Application</a>
 <br><br>
 
 <h3 id="contributors">Contributors</h3>
