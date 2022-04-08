@@ -87,7 +87,11 @@ function loadDrinkCards(){
   searchResultsContainer.innerHTML = '';
   console.log(drinks)
   //loop through data/drinks array 
-  for(var i = 0; i <= 3; i++){
+  for(var i = 0; i < 3; i++){
+    // quick fix so no code breaking for drinks less than 3
+    if(drinks.length < 3){
+      break;
+    }
     let strMeasureArr = [];
     let strIngredientArr = [];
     let formulaHTML = '';
