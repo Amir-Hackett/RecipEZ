@@ -87,7 +87,7 @@ function loadDrinkCards(){
   searchResultsContainer.innerHTML = '';
   console.log(drinks)
   //loop through data/drinks array 
-  for(var i = 0; i < 3; i++){
+  for(var i = 0; i <= 3; i++){
     let strMeasureArr = [];
     let strIngredientArr = [];
     let formulaHTML = '';
@@ -110,6 +110,14 @@ function loadDrinkCards(){
     }
     //generate recipe HTML from the ingredients and measure arrays
     for(var z = 0; z < strIngredientArr.length; z++){
+      if(strMeasureArr[z] == undefined){
+        strMeasureArr[z] = "As much as you'd like!"
+      }
+
+      // gets rid of the extra : if null
+      strMeasureArr = strMeasureArr.filter(item => item)
+      strIngredientArr = strIngredientArr.filter(item => item)
+
       formulaHTML += `
       <p>
       ${strIngredientArr[z]} : ${strMeasureArr[z]}
