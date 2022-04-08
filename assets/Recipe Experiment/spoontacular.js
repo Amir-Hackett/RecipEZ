@@ -14,6 +14,7 @@ function spoontacularAPI(){
         response.json().then(function(data){
           recipeSearchArr.push(data);
         }).then(function() {
+          console.log(recipeSearchArr)
           loadCards();
         }) 
     })
@@ -34,7 +35,7 @@ function loadCards(){
       <div class="card-image has-text-centered">
         <i class="fa-solid fa-utensils"></i>
       </div>
-      <div class="card-content" data="${recipe[i].id}">
+      <div class="card-content" data-recipeid="${recipe[i].id}">
         <div class="content">
           <img src="${recipe[i].image}"/>
           <h4>${recipe[i].name}</h4>
@@ -64,10 +65,6 @@ function advSearchFunction(data) {
   var cuisineOptions = searchInput.siblings('#cuisine')[0].children;
   var cuisineString = '';
 
-  // var selectedCuisineOptions = cuisineOptions.filter(function(item) {
-  //   console.log(item)
-  // });
-
   for (var i = 0; i < cuisineOptions.length; i++){
     if (cuisineOptions[i].checked){
       let checkedOption = cuisineOptions[i].previousElementSibling.innerHTML;
@@ -75,8 +72,13 @@ function advSearchFunction(data) {
       console.log(cuisineOptions[i].previousElementSibling.innerHTML);
     }
   }
+  
+  var excludeItems = '';
+
+  
+
   // console.log(keyWord);
-  console.log(cuisineString);
+  console.log(data.siblings('#cuisine'));
 }
 
 function saveRecipes(target) {
@@ -90,6 +92,7 @@ $("#submit-btn").click(function () {
   var selector = $(this).siblings('#sort').val();
   if (selector === 'recipe'){
     spoontacularAPI();
+    console.log(searchInput)
   } else if (selector === 'drink'){
     console.log('call the drink API')
   } else {
@@ -107,5 +110,11 @@ $("#adv-search-btn").click(function(){
 // event listener for save button
 $("#recipeSearchResults").click(function(event){
   let target = event.target.parentElement;
-  saveRecipes(target);
+  console.log(target.dataset.recipeid)
+  // saveRecipes(target);
+
 });
+
+//event listener for checkboxes
+
+
