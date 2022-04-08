@@ -4,8 +4,9 @@ const submitRecipe = document.getElementById("submit-btn");
 const drinkContainer = document.querySelector('#drinkContainer'); 
 const searchDrinkResultsContainer = document.getElementById("drinkSearchResults");
 const recipeContainer = document.querySelector('#recipeContainer'); 
-const searchResultsContainer = document.getElementById("recipeSearchResults");
-var recipeSearchArr = [];
+const searchResultsContainer = document.getElementById("searchResults");
+var searchResultsArr = [];
+
 
 // calls spoontacular recipe api
 function spoontacularAPI(){
@@ -16,9 +17,8 @@ function spoontacularAPI(){
   fetch(apiURL)
   .then(function(response){
       response.json().then(function(data){
-        recipeSearchArr.push(data);
+        searchResultsArr.push(data);
       }).then(function() {
-        console.log(recipeSearchArr)
         loadFoodCards();
       }) 
   })
@@ -37,8 +37,9 @@ function getCocktail(){
       }
       // Examine the text in the response
       response.json().then(function(data) {
-      console.log(data);
-      loadDrinkCards(data)
+      searchResultsArr.push(data);
+      }).then(function() {
+        loadDrinkCards()
       });
   })
   .catch(function(err){
@@ -50,8 +51,8 @@ function getCocktail(){
 // loads cards based on the search parameters the user selects.
 function loadFoodCards(){
 
-  var recipe = recipeSearchArr[0].searchResults[0].results;
-  console.log(recipe);
+  var recipe = searchResultsArr[0].searchResults[0].results;
+  // console.log(recipe);
   searchResultsContainer.innerHTML = '';
   for (var i = 0; i < 3; i++) {
   
@@ -78,40 +79,63 @@ function loadFoodCards(){
     </div>
     `
   }
- recipeSearchArr = [];
+ searchResultsArr = [];
 }
 
-function loadDrinkCards(data){
-  for(var i = 0; i < data.drinks.length; i+=4){
-    var cocktail = data;
-
- searchResultsContainer.innerHTML += `
-  
-    <div class="card-content">
-      <div class="content">
-        <img src="${cocktail.drinks[i].strDrinkThumb}"/>
-        <h4>${cocktail.drinks[i].strDrink}</h4>
-        <p>
-          ${data.drinks[i]['strIngredient' + "1" ]} : ${data.drinks[i]['strMeasure1']}
-        </p>
-        <p>
-        ${data.drinks[i]['strIngredient' + "2"]} : ${data.drinks[i]['strMeasure2']}
-      </p>
+function loadDrinkCards(){
+  var drinks = searchResultsArr[0].drinks;
+  console.log(drinks)
+  //loop through data/drinks array 
+  for(var i = 0; i < 3; i++){
+    let strMeasureArr = [];
+    let strIngredientArr = [];
+    let formulaHTML = '';
+    var drinkId = drinks[i].idDrink;
+    var instructions = drinks[i].strInstructions;
+    //find all measure properties, if they have a value not equal to null push them to their respective array
+    for(var x = 1; x < 15; x++){
+      var measure = drinks[i]['strMeasure'+[x]];
+        if (measure != null) {
+        strMeasureArr.push(measure);
+      }
+    } 
+    //find all ingredient properties, if they have a value not equal to null push them to their respective array
+    for(var y = 1; y < 15; y++){
+      var ingredient = drinks[i]['strIngredient'+[y]];
+      if(ingredient != null){
+        strIngredientArr.push(ingredient);
+      }
+    }
+    //generate recipe HTML from the ingredients and measure arrays
+    for(var z = 0; z < strIngredientArr.length; z++){
+      formulaHTML += `
       <p>
-      ${data.drinks[i]['strIngredient' + "3"]} : ${data.drinks[i]['strMeasure3']}
-    </p>
-    <p>
-    ${data.drinks[i]['strIngredient' + "4"]} : ${data.drinks[i]['strMeasure4']}
-  </p>
-  <p>
-  ${data.drinks[i]['strInstructions']}
-</p>
+      ${strIngredientArr[z]} : ${strMeasureArr[z]}
+      </p>
+      `
+    }
+    //write html for drink cards and append them to the search container
+  searchResultsContainer.innerHTML += `
+    
+    <div class="card is-shady column is-4">
+      <div class="card-image has-text-centered">
+        <i class="fa-solid fa-utensils"></i>
       </div>
+        <div class="card-content" data-drinkid="${drinkId}">
+          <div class="content">
+            <img src="${drinks[i].strDrinkThumb}"/>
+            <h4>${drinks[i].strDrink}</h4>
+            ${formulaHTML}
+            <p>
+            ${instructions}
+            </p>
+          </div>
+          <button>Save Drink</button>
+        </div>
     </div>
-  </div>
-
-  `
-}
+      `
+  }
+  searchResultsArr = [];
 }
 
 //advanced search function
@@ -145,28 +169,30 @@ function advSearchFunction(data) {
 //   fetch(apiURL)
 //   .then(function(response){
 //       response.json().then(function(data){
-//         recipeSearchArr.push(data);
+//         searchResultsArr.push(data);
 //       }).then(function() {
-//         console.log(recipeSearchArr)
+//         console.log(searchResultsArr)
 //         loadCards();
 //       }) 
 //   })
 // }
 
 //save favorite recipe function
-function saveRecipes(target) {
+function saveRecipes(recipeId) {
   //declare variable of saved recipe content
-  var savedRecipe = dataset.recipeid;
-  savedRecipeArr.push(savedRecipe);
-  console.log(savedRecipeArr);
+var saveRecipeId = recipeId
 
 //save recipe content to local storage
-  localStorage.setItem('Recipe', JSON.stringify(savedRecipeArr));
+  localStorage.setItem('Recipe', JSON.stringify(saveRecipeId));
 
 //display saved recipe content from local storage
-  var retrievedObject = localStorage.getItem('Recipe');
+  // var retrievedObject = localStorage.getItem('Recipe');
 
-  console.log('retrievedObject: ', JSON.parse(retrievedObject));
+  // console.log('retrievedObject: ', JSON.parse(retrievedObject));
+
+}
+
+function saveDrinks() {
 
 }
 
@@ -181,6 +207,7 @@ $("#adv-search-btn").click(function(){
 $("#submit-btn").click(function() {
   searchInput = $(this).siblings("#searchInput").val().toLowerCase();
   var selector = $(this).siblings('#sort').val();
+
   if (selector === 'recipe'){
     spoontacularAPI();
   } else if (selector === 'drink'){
@@ -190,12 +217,25 @@ $("#submit-btn").click(function() {
   }
 });
 
-// save favorite click listener
-$("#recipeSearchResults").click(function(event){
+// food save favorite click listener
+$("#searchResults").click(function(event){
   let target = event.target.parentElement;
-  console.log(target.dataset.recipeid)
-  // saveRecipes(target);
+  // if statement to determine if the data-set attribute is for a food or a drink card, this way the id#'s can be stored in different arrays
+  if ('drinkid' in target.dataset === true){
+    let drinkId = target.dataset.drinkid;
+    saveDrinks(drinkId);
+    // console.log(target.dataset.drinkid)
+
+  } else if('recipeid' in target.dataset === true) {
+    let recipeId = target.dataset.recipeId
+    saveRecipes(recipeId);
+    // console.log(target.dataset.recipeid)
+
+  } else {
+    console.log('nothing is logged')
+  }
 });
+
 
 //event listener for the advanced search form (food only)
 $("adv-search-btn").click(function(){
