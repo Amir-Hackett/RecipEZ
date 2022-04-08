@@ -98,6 +98,7 @@ function loadDrinkCards(){
       var measure = drinks[i]['strMeasure'+[x]];
         if (measure != null) {
         strMeasureArr.push(measure);
+        console.log(strMeasureArr)
       }
     } 
     //find all ingredient properties, if they have a value not equal to null push them to their respective array
