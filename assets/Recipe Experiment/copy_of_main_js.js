@@ -6,14 +6,13 @@ const searchDrinkResultsContainer = document.getElementById("drinkSearchResults"
 const recipeContainer = document.querySelector('#recipeContainer'); 
 const searchResultsContainer = document.getElementById("searchResults");
 var searchResultsArr = [];
+var spoontacularApiKey = "33e1a2adb44145efa8cd514a15f3d98c"
+var apiURL = '';
 
 
 // calls spoontacular recipe api
-function spoontacularAPI(){
-  //spoontacularAPI Key
-  var apiKey = "33e1a2adb44145efa8cd514a15f3d98c"
-  var apiURL = `https://api.spoonacular.com/food/search?query=${searchInput}&number=3&apiKey=${apiKey}`
-
+function spoontacularAPI(apiURL){
+console.log(apiURL);
   fetch(apiURL)
   .then(function(response){
       response.json().then(function(data){
@@ -50,9 +49,16 @@ function getCocktail(){
 
 // loads cards based on the search parameters the user selects.
 function loadFoodCards(){
+  // console.log(searchResultsArr[0].searchResults);
+  if (searchResultsArr[0].searchResults){
+    var recipe = searchResultsArr[0].searchResults[0].results;
+  } else {
+    recipe = searchResultsArr[0].results;
+  };
 
-  var recipe = searchResultsArr[0].searchResults[0].results;
-  // console.log(recipe);
+ console.log(recipe);
+  
+  
   searchResultsContainer.innerHTML = '';
   for (var i = 0; i < 3; i++) {
   
@@ -79,7 +85,11 @@ function loadFoodCards(){
     </div>
     `
   }
- searchResultsArr = [];
+ clearResultsArray();
+}
+
+function clearResultsArray(){
+  searchResultsArr = [];
 }
 
 function loadDrinkCards(){
@@ -207,60 +217,83 @@ function advSearchFunction(data) {
   if (maxPrepTime === NaN) {
     window.alert = ("Max Prep Time can only accept numbers. Please input the max prep time desired in minutes only.")
   }
-  //Input field variable value check, if they have a valid value then push the variable in the form of an object with the parameter name used by the spootacular API to the search parameters array
-  if(keyword.length > 0) {
-    let obj = {};
-    obj['query'] = keyword;
-    searchParamArr.push(obj);
-  }
 
-  if(includeIngredients.length > 0) {
-    let obj = {};
-    obj['includeIngredients'] = includeIngredients;
-    searchParamArr.push(obj);
-  }
+  function buildParamArray(){
+      //Input field variable value check, if they have a valid value then push the variable in the form of an object with the parameter name used by the spootacular API to the search parameters array
+    if(keyword.length > 0) {
+      let obj = {};
+      obj['parameter'] = `&query=${keyword}`;
+      searchParamArr.push(obj);
+    }
 
-  if(excludeIngredients.length > 0) {
-    let obj = {};
-    obj['excludeIngredients'] = excludeIngredients;
-    searchParamArr.push(obj);
-  }
+    if (cuisineString.length > 0) {
+      let obj = {};
+      obj['parameter'] = `&cuisine=${cuisineString}`
+      searchParamArr.push(obj);
+    }
 
-  if(maxPrepTime > 0) {
-    let obj = {};
-    obj['maxReadyTime'] = maxPrepTime;
-    searchParamArr.push(obj);
-  }
+    if(intoleranceString.length > 0){
+      let obj = {};
+      obj['parameter'] = `&intolerances=${intoleranceString}`;
+      searchParamArr.push(obj);
+    }
 
-  if(maxCalories > 0) {
-    let obj = {};
-    obj['maxCalories'] = maxCalories;
-    searchParamArr.push(obj);
-  }
-  if(maxSugar > 0) {
-    let obj = {};
-    obj['maxSugar'] = maxSugar;
-    searchParamArr.push(obj);
-  }
+    if(includeIngredients.length > 0) {
+      let obj = {};
+      obj['parameter'] = `&includeIngredients=${includeIngredients}`;
+      searchParamArr.push(obj);
+    }
 
-  if( maxCarbs > 0) {
-    let obj = {};
-    obj['maxCarbs'] = maxCarbs;
-    searchParamArr.push(obj);
-  }
+    if(excludeIngredients.length > 0) {
+      let obj = {};
+      obj['parameter'] = `&excludeIngredients=${excludeIngredients}`;
+      searchParamArr.push(obj);
+    }
 
-  if( maxResults > 0 && maxResults < 100) {
-    let obj = {};
-    obj['number'] = maxResults;
-    searchParamArr.push(obj);
-  }
+    if(mealTypeString.length > 0){
+      let obj = {};
+      obj['parameter'] = `&type=${mealTypeString}`
+      searchParamArr.push(obj);
+    }
 
-  if(sortBy) {
-    let obj = {};
-    obj['sort'] = sortBy;
-    searchParamArr.push(obj);
-  }
+    if(maxPrepTime > 0) {
+      let obj = {};
+      obj['parameter'] = `&maxReadyTime=${maxPrepTime}`;
+      searchParamArr.push(obj);
+    }
 
+    if(sortBy) {
+      let obj = {};
+      obj['parameter'] = `&sort=${sortBy}`;
+      searchParamArr.push(obj);
+    }
+
+    if( maxCarbs > 0) {
+      let obj = {};
+      obj['parameter'] = `&maxCarbs=${maxCarbs}`;
+      searchParamArr.push(obj);
+    }
+
+    if(maxCalories > 0) {
+      let obj = {};
+      obj['parameter'] = `&maxCalories=${maxCalories}`;
+      searchParamArr.push(obj);
+    }
+
+    if(maxSugar > 0) {
+      let obj = {};
+      obj['parameter'] = `&maxSugar=${maxSugar}`;
+      searchParamArr.push(obj);
+    }
+
+    if( maxResults > 0 && maxResults < 100) {
+      let obj = {};
+      obj['parameter'] = `&number=${maxResults}`;
+      searchParamArr.push(obj);
+    }
+  }
+  
+  buildParamArray()
   advancedSearchFetch(searchParamArr);
 
 // console logs for individual search values, used for debugging. 
@@ -280,7 +313,16 @@ function advSearchFunction(data) {
 
 function advancedSearchFetch(searchParamArr){
   let searchArr = searchParamArr;
-  console.log(searchArr);
+  // console.log(searchArr);
+  var searchParameters = '';
+  let apiKey = "33e1a2adb44145efa8cd514a15f3d98c";
+
+  for (let i = 0; i < searchArr.length; i++) {
+    searchParameters += searchArr[i].parameter;
+  }
+
+  apiURL = `https://api.spoonacular.com/recipes/complexSearch?${searchParameters}&apiKey=${apiKey}`;
+  spoontacularAPI(apiURL);
 }
 
 // function callFavorites() {
@@ -322,11 +364,12 @@ $("#adv-search-btn").click(function(){
 
 // event listener for the quick search
 $("#submit-btn").click(function() {
-  searchInput = $(this).siblings("#searchInput").val().toLowerCase();
+  var searchInput = $(this).siblings("#searchInput").val().toLowerCase();
   var selector = $(this).siblings('#sort').val();
 
   if (selector === 'recipe'){
-    spoontacularAPI();
+    apiURL = `https://api.spoonacular.com/food/search?query=${searchInput}&number=3&apiKey=${spoontacularApiKey}`
+    spoontacularAPI(apiURL);
   } else if (selector === 'drink'){
     getCocktail();
   } else {
@@ -369,3 +412,8 @@ $("#searchResults").click(function(event){
 $("adv-search-btn").click(function(){
   advSearchFunction();
 });
+
+$("#clear").click(function(){
+  searchResultsContainer.innerHTML = '';
+  searchResultsArr = [];
+})
