@@ -25,31 +25,30 @@ function getCocktail(){
 }
 
 function loadCards(data){
-    for(var x = 0; x < data.drinks.length - 3; x++){
+    for(var i = 0; i < data.drinks.length; i++){
       var cocktail = data;
 
    searchResultsContainer.innerHTML += `
     
       <div class="card-content">
         <div class="content">
-          <img src="${cocktail.drinks[x].strDrinkThumb}"/>
-          <h4>${cocktail.drinks[x].strDrink}</h4>
+          <img src="${cocktail.drinks[i].strDrinkThumb}"/>
+          <h4>${cocktail.drinks[i].strDrink}</h4>
           <p>
-            ${data.drinks[x]['strIngredient' + "1" ]}
+            ${data.drinks[i]['strIngredient' + "1" ]} : ${data.drinks[i]['strMeasure1']}
           </p>
           <p>
-          ${data.drinks[x]['strIngredient' + "2"]}
+          ${data.drinks[i]['strIngredient' + "2"]} : ${data.drinks[i]['strMeasure2']}
         </p>
         <p>
-        ${data.drinks[x]['strIngredient' + "3"]}
+        ${data.drinks[i]['strIngredient' + "3"]} : ${data.drinks[i]['strMeasure3']}
       </p>
       <p>
-      ${data.drinks[x]['strIngredient' + "4"]}
+      ${data.drinks[i]['strIngredient' + "4"]} : ${data.drinks[i]['strMeasure4']}
     </p>
     <p>
-    ${data.drinks[x]['strInstructions']}
+    ${data.drinks[i]['strInstructions']}
   </p>
-          <!--<p><a href="${cocktail.drinks[x].strInstructions}">See Full Recipe</a></p>-->
         </div>
       </div>
 
