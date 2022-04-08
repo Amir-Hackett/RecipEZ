@@ -25,7 +25,7 @@ function getCocktail(){
 }
 
 function loadCards(data){
-    for(var i = 0; i < data.drinks.length; i++){
+    for(var i = 0; i < data.drinks.length; i+=4){
       var cocktail = data;
 
    searchResultsContainer.innerHTML += `
@@ -51,7 +51,6 @@ function loadCards(data){
   </p>
         </div>
       </div>
-
     </div>
   
     `
