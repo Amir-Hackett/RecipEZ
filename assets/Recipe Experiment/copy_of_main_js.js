@@ -84,12 +84,14 @@ function loadFoodCards(){
 
 function loadDrinkCards(){
   var drinks = searchResultsArr[0].drinks;
+  console.log(drinks)
   //loop through data/drinks array 
   for(var i = 0; i < 3; i++){
     let strMeasureArr = [];
     let strIngredientArr = [];
     let formulaHTML = '';
-    let dinkId = '';
+    var drinkId = drinks[i].idDrink;
+    var instructions = drinks[i].strInstructions;
     //find all measure properties, if they have a value not equal to null push them to their respective array
     for(var x = 1; x < 15; x++){
       var measure = drinks[i]['strMeasure'+[x]];
@@ -119,16 +121,18 @@ function loadDrinkCards(){
       <div class="card-image has-text-centered">
         <i class="fa-solid fa-utensils"></i>
       </div>
-        <div class="card-content">
-          <div class="content" id=>
+        <div class="card-content" data-drinkid="${drinkId}">
+          <div class="content">
             <img src="${drinks[i].strDrinkThumb}"/>
             <h4>${drinks[i].strDrink}</h4>
             ${formulaHTML}
+            <p>
+            ${instructions}
+            </p>
           </div>
           <button>Save Drink</button>
         </div>
     </div>
-
       `
   }
   searchResultsArr = [];
@@ -174,19 +178,21 @@ function advSearchFunction(data) {
 // }
 
 //save favorite recipe function
-function saveRecipes(target) {
+function saveRecipes(recipeId) {
   //declare variable of saved recipe content
-  var savedRecipe = dataset.recipeid;
-  savedRecipeArr.push(savedRecipe);
-  console.log(savedRecipeArr);
+var saveRecipeId = recipeId
 
 //save recipe content to local storage
-  localStorage.setItem('Recipe', JSON.stringify(savedRecipeArr));
+  localStorage.setItem('Recipe', JSON.stringify(saveRecipeId));
 
 //display saved recipe content from local storage
-  var retrievedObject = localStorage.getItem('Recipe');
+  // var retrievedObject = localStorage.getItem('Recipe');
 
-  console.log('retrievedObject: ', JSON.parse(retrievedObject));
+  // console.log('retrievedObject: ', JSON.parse(retrievedObject));
+
+}
+
+function saveDrinks() {
 
 }
 
@@ -214,8 +220,20 @@ $("#submit-btn").click(function() {
 // food save favorite click listener
 $("#searchResults").click(function(event){
   let target = event.target.parentElement;
-  console.log(target.dataset.recipeid)
-  // saveRecipes(target);
+  // if statement to determine if the data-set attribute is for a food or a drink card, this way the id#'s can be stored in different arrays
+  if ('drinkid' in target.dataset === true){
+    let drinkId = target.dataset.drinkid;
+    saveDrinks(drinkId);
+    // console.log(target.dataset.drinkid)
+
+  } else if('recipeid' in target.dataset === true) {
+    let recipeId = target.dataset.recipeId
+    saveRecipes(recipeId);
+    // console.log(target.dataset.recipeid)
+
+  } else {
+    console.log('nothing is logged')
+  }
 });
 
 
