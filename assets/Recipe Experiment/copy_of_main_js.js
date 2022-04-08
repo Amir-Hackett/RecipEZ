@@ -139,45 +139,148 @@ function loadDrinkCards(){
   searchResultsArr = [];
 }
 
+document.getElementById("sort").onchange = function(){
+  dropDownChange()
+}
+function dropDownChange(){
+  var selector = document.getElementById("sort").value
+  if (selector === 'recipe'){
+    document.getElementById("searchInput").placeholder = "Search Recipes"
+  } else if (selector === 'drink'){
+    document.getElementById("searchInput").placeholder = "Search Drinks"
+  } else {
+    console.log('nothing gets called')
+  } 
+}
+
 //advanced search function
 function advSearchFunction(data) {
+  //input data from advanced search form
   var searchInput = data;
+  //array to store valid search parameters, this array will be used to generate the URL for the fetch request
+  var searchParamArr = [];
+  //search parameter input field values
   var keyword = searchInput.siblings('#key-word').val().toLowerCase();
+  //options returns all the array objects that are radio buttons, then the cuisine for loop pulls the user selected objects from this array and pushes them to cuisineSting
   var cuisineOptions = searchInput.siblings('#cuisine')[0].children;
   var cuisineString = '';
+  //options returns all the array objects that are radio buttons, then the intolerance for loop pulls the user selected objects from this array and pushes them to intoleranceSting
   var intoleranceOptions = searchInput.siblings('#intolerance')[0].children;
   var intoleranceString = '';
+  //checks for values in the include/exclude input fields
   var includeIngredients = searchInput.siblings('#include-ingredients').val().toLowerCase()
   var excludeIngredients = searchInput.siblings('#exclude-ingredients').val().toLowerCase()
-  var mealTypeOptions = '';
+  //options returns all the array objects that are radio buttons, then the mealOptions for loop pulls the user selected objects from this array and pushes them to mealTypeSting
+  var mealTypeOptions = searchInput.siblings('#meal-type')[0].children;
   var mealTypeString = '';
+  //checks for values in all remaining input fields
+  var maxPrepTime = parseInt(searchInput.siblings('#max-prep').val());
+  var maxCalories = parseInt(searchInput.siblings('#max-cal').val());
+  var maxSugar = parseInt(searchInput.siblings('#max-sugar').val());
+  var maxCarbs = parseInt(searchInput.siblings('#max-carbs').val());
+  var maxResults = parseInt(searchInput.siblings('#max-results').val());
+  var sortBy = searchInput.siblings('#sort').val();
 
+
+  //cuisineOptions for loop
   for (let i = 0; i < cuisineOptions.length; i++){
     if (cuisineOptions[i].checked){
       let checkedOption = cuisineOptions[i].previousElementSibling.innerHTML;
-      cuisineString += `${checkedOption},`;
+      cuisineString = `${checkedOption}`;
     }
   }
-
+  // intoleranceOptions for loop
   for(let i = 0; i < intoleranceOptions.length; i++) {
     if(intoleranceOptions[i].checked) {
       let checkedOption = intoleranceOptions[i].previousElementSibling.innerHTML;
       intoleranceString += `${checkedOption},`;
     }
   }
+  //mealOptions types for loop
+  for(let i = 0; i < mealTypeOptions.length; i++) {
+    if(mealTypeOptions[i].checked) {
+      let checkedOption = mealTypeOptions[i].previousElementSibling.innerHTML;
+      mealTypeString = `${checkedOption}`;
+    }
+  }
+// this ones not working right now. Come back and fix this with a form validation function once all other variables and final string concatenation function is done
+  if (maxPrepTime === NaN) {
+    window.alert = ("Max Prep Time can only accept numbers. Please input the max prep time desired in minutes only.")
+  }
+  //Input field variable value check, if they have a valid value then push the variable in the form of an object with the parameter name used by the spootacular API to the search parameters array
+  if(keyword.length > 0) {
+    let obj = {};
+    obj['query'] = keyword;
+    searchParamArr.push(obj);
+  }
 
+  if(includeIngredients.length > 0) {
+    let obj = {};
+    obj['includeIngredients'] = includeIngredients;
+    searchParamArr.push(obj);
+  }
 
-  
+  if(excludeIngredients.length > 0) {
+    let obj = {};
+    obj['excludeIngredients'] = excludeIngredients;
+    searchParamArr.push(obj);
+  }
 
-  
+  if(maxPrepTime > 0) {
+    let obj = {};
+    obj['maxReadyTime'] = maxPrepTime;
+    searchParamArr.push(obj);
+  }
 
+  if(maxCalories > 0) {
+    let obj = {};
+    obj['maxCalories'] = maxCalories;
+    searchParamArr.push(obj);
+  }
+  if(maxSugar > 0) {
+    let obj = {};
+    obj['maxSugar'] = maxSugar;
+    searchParamArr.push(obj);
+  }
 
-  console.log(`keyword: ${keyword}`)
-  console.log(`cuisine: ${cuisineString}`);
-  console.log(`intolerance: ${intoleranceString}`);
-  console.log(`include ingredients: ${includeIngredients}`);
-  console.log(`exclude: ${excludeIngredients}`);
+  if( maxCarbs > 0) {
+    let obj = {};
+    obj['maxCarbs'] = maxCarbs;
+    searchParamArr.push(obj);
+  }
 
+  if( maxResults > 0 && maxResults < 100) {
+    let obj = {};
+    obj['number'] = maxResults;
+    searchParamArr.push(obj);
+  }
+
+  if(sortBy) {
+    let obj = {};
+    obj['sort'] = sortBy;
+    searchParamArr.push(obj);
+  }
+
+  advancedSearchFetch(searchParamArr);
+
+// console logs for individual search values, used for debugging. 
+  // console.log(`keyword: ${keyword}`)
+  // console.log(`cuisine: ${cuisineString}`);
+  // console.log(`intolerance: ${intoleranceString}`);
+  // console.log(`include ingredients: ${includeIngredients}`);
+  // console.log(`exclude: ${excludeIngredients}`);
+  // console.log(`meal type: ${mealTypeString}`);
+  // console.log(`max-prep ${maxPrepTime}`);
+  // console.log(`max-calories: ${maxCalories}`);
+  // console.log(`max-sugar: ${maxSugar}`);
+  // console.log(`max carbs: ${maxCarbs}`);
+  // console.log(`max results: ${maxResults}`);
+  // console.log(`sort by: ${sortBy}`);
+}
+
+function advancedSearchFetch(searchParamArr){
+  let searchArr = searchParamArr;
+  console.log(searchArr);
 }
 
 // function callFavorites() {
@@ -229,7 +332,18 @@ $("#submit-btn").click(function() {
   } else {
     console.log('nothing gets called')
   }
+  $("#searchInput").val('')
 });
+
+// ability to press enter for function
+var input = document.getElementById("searchInput")
+input.addEventListener("keyup", function(event){
+  // 13 is enter || return on keyboard
+  if (event.keyCode === 13){
+    event.preventDefault()
+    document.getElementById("submit-btn").click()
+  }
+})
 
 // food save favorite click listener
 $("#searchResults").click(function(event){
