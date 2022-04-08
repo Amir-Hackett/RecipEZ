@@ -84,6 +84,7 @@ function loadFoodCards(){
 
 function loadDrinkCards(){
   var drinks = searchResultsArr[0].drinks;
+  searchResultsContainer.innerHTML = '';
   console.log(drinks)
   //loop through data/drinks array 
   for(var i = 0; i < 3; i++){
@@ -148,7 +149,8 @@ function advSearchFunction(data) {
   var intoleranceString = '';
   var includeIngredients = searchInput.siblings('#include-ingredients').val().toLowerCase()
   var excludeIngredients = searchInput.siblings('#exclude-ingredients').val().toLowerCase()
-  console.log(intoleranceOptions);
+  var mealTypeOptions = '';
+  var mealTypeString = '';
 
   for (let i = 0; i < cuisineOptions.length; i++){
     if (cuisineOptions[i].checked){
