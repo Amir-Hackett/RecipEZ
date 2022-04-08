@@ -19,7 +19,21 @@ function spoontacularAPI(){
         }) 
     })
 }
+// function callFavorites() {
 
+//   var apiKey = "33e1a2adb44145efa8cd514a15f3d98c"
+//   var apiURL = `https://api.spoonacular.com/food/search?query=${}&number=3&apiKey=${apiKey}`
+
+//   fetch(apiURL)
+//   .then(function(response){
+//       response.json().then(function(data){
+//         recipeSearchArr.push(data);
+//       }).then(function() {
+//         console.log(recipeSearchArr)
+//         loadCards();
+//       }) 
+//   })
+// }
 
 // loads cards based on the search parameters the user selects.
 function loadCards(){
