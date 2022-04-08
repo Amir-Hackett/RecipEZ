@@ -63,10 +63,9 @@ function loadCards(){
 //save favorite recipe function
 function saveRecipes(target) {
   //declare variable of saved recipe content
-  var savedRecipe = target.innerHTML;
+  var savedRecipe = dataset.recipeid;
   savedRecipeArr.push(savedRecipe);
   console.log(savedRecipeArr);
-
 
 //save recipe content to local storage
   localStorage.setItem('Recipe', JSON.stringify(savedRecipeArr));
@@ -106,6 +105,7 @@ $("adv-search-btn").click(function(){
 // save favorite click listener
 $("#recipeSearchResults").click(function(event){
   let target = event.target.parentElement;
-  saveRecipes(target);
+  console.log(target.dataset.recipeid)
+  // saveRecipes(target);
 });
 
