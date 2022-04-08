@@ -19,6 +19,7 @@ function spoontacularAPI(){
         }) 
     })
 }
+
 // function callFavorites() {
 
 //   var apiKey = "33e1a2adb44145efa8cd514a15f3d98c"
@@ -143,7 +144,7 @@ include following fields:
 recipe title,
 recipe image,
 ingredients -> make ingredients dynamic, in a way, make user input each ingredients separately into an additional field for now, 
-    eventually we should finn an api like zestful that parses a string into ingredients. 
+    eventually we should find an api like zestful that parses a string into ingredients. 
 directions -> same as ingredients, add in ability for user to add an additional steps fields, start with 5 steps
 
 each ingredient and step should be dded to the recipe array object in the format in the default array defined at the top of the page. 

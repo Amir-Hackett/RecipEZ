@@ -179,15 +179,20 @@ function advSearchFunction(data) {
 
 //save favorite recipe function
 function saveRecipes(recipeId) {
-  console.log(recipeId)
-  console.log('made it into the save recipes function')
+  //declare variable of saved recipe content
+var saveRecipeId = recipeId
+
+//save recipe content to local storage
+  localStorage.setItem('Recipe', JSON.stringify(saveRecipeId));
+
+//display saved recipe content from local storage
+  // var retrievedObject = localStorage.getItem('Recipe');
+
+  // console.log('retrievedObject: ', JSON.parse(retrievedObject));
 
 }
 
-function saveDrinks(drinkId) {
-
-  console.log(drinkId)
-  console.log('made it into the save drinks function')
+function saveDrinks() {
 
 }
 
@@ -222,7 +227,7 @@ $("#searchResults").click(function(event){
     // console.log(target.dataset.drinkid)
 
   } else if('recipeid' in target.dataset === true) {
-    let recipeId = target.dataset.recipeid;
+    let recipeId = target.dataset.recipeId
     saveRecipes(recipeId);
     // console.log(target.dataset.recipeid)
 
