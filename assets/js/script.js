@@ -6,6 +6,7 @@ const searchDrinkResultsContainer = document.getElementById("drinkSearchResults"
 const recipeContainer = document.querySelector('#recipeContainer'); 
 const searchResultsContainer = document.getElementById("searchResults");
 var searchResultsArr = [];
+var savedRecipeArr = [];
 
 
 // calls spoontacular recipe api
@@ -195,16 +196,31 @@ function advSearchFunction(data) {
 // }
 
 //save favorite recipe function
-function saveRecipes(recipeId) {
-  console.log(recipeId)
-  console.log('made it into the save recipes function')
+function saveRecipes(recipeId, event) {
+  // console.log(recipeId)
 
+  //grab specific dataset recipe id
+  let target = event.target.parentElement;
+
+  //declare variable of saved recipe content
+  var savedRecipe = target.dataset.recipeid;
+  savedRecipeArr.push(savedRecipe);
+  // console.log(savedRecipeArr);
+ 
+  //save recipe content to local storage
+  localStorage.setItem('Recipe', JSON.stringify(savedRecipeArr));
+ 
+ //display saved recipe content from local storage
+  var retrievedObject = localStorage.getItem('Recipe');
+ 
+  console.log('retrievedObject: ', JSON.parse(retrievedObject));
 }
 
 function saveDrinks(drinkId) {
-
   console.log(drinkId)
   console.log('made it into the save drinks function')
+
+  
 
 }
 
@@ -250,7 +266,7 @@ $("#searchResults").click(function(event){
 
   } else if('recipeid' in target.dataset === true) {
     let recipeId = target.dataset.recipeid;
-    saveRecipes(recipeId);
+    saveRecipes(recipeId, event);
     // console.log(target.dataset.recipeid)
 
   } else {
