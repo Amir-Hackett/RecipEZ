@@ -45,7 +45,7 @@ function loadFoodCards(resultsArr) {
     console.log(resultsArr);
 
     let ingredients = resultsArr[i].ingredients;
-    let instructions = resultsArr[i].fullInfo.instructions;
+    // let instructions = resultsArr[i].fullInfo.instructions;
     
 
     // replace the innerHTML of the cards container with a dynamically generated template literal
@@ -61,11 +61,12 @@ function loadFoodCards(resultsArr) {
           <h4>${resultsArr[i].title}</h4>
 
           <img src="${ingredients}" alt="Ingredients Image" />
-          <p> Instructions: <br/>
-            ${instructions}
+          <p> 
+          Instructions: <br/>
+            ${resultsArr[i].fullInfo.instructions}
           </p>
 
-          <p><a href="">See Full Recipe</a></p>
+          <p><a href="${resultsArr[i].fullInfo.souceUrl}">See Full Recipe</a></p>
           <p>
             <label for="favorite">Click to save favorite: </label>
           </p>
@@ -76,7 +77,7 @@ function loadFoodCards(resultsArr) {
 
   }
   // this may be redundant but since the drinks functions use this global variable it will clear the array after the food cards are generated and loaded.
-  clearResultsArray();
+  // clearResultsArray();
 }
 
 //clears the search results array.
@@ -416,6 +417,9 @@ function ingredientsImg(resultsArr) {
           getFullRecipeInfo(resultsArr);
         }
 
+      })
+      .catch(function (err) {
+        console.log('Fetch Error :-S', err);
       });
 
   }
@@ -445,6 +449,9 @@ function getFullRecipeInfo(resultsArr){
                   loadFoodCards(resultsArr);
                 }
               })
+              .catch(function (err) {
+                console.log('Fetch Error :-S', err);
+              });
   }
 } 
 
