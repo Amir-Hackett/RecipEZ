@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>RecipEZ</title>
-    <link
+    <!-- <link
       rel="shortcut icon"
-      href="../RecipEZ/assets/images/favicon.png"
+      href="/assets/images/favicon.png"
       type="image/x-icon"
-    />
+    /> -->
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -25,7 +25,9 @@
       href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
     />
     <!-- landing css -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/landing.css" />
+    <!-- <link 
+      rel="stylesheet" type="text/css" href="/assets/css/landing.css" 
+    /> -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css"
@@ -39,7 +41,7 @@
             <div class="navbar-brand">
               <a class="navbar-item" href="../">
                 <img
-                  src="./assets/images/recipEZ3.png"
+                  src="/assets/images/recipEZ3.png"
                   alt="RecipEZ logo"
                 />
               </a>
@@ -50,8 +52,8 @@
                   <ul>
                     <li class="is-active"><a>Home</a></li>
                     <li><a href="/index.html">Recipes</a></li>
-                    <li><a href="./assets/subPages/about-us.html">About Us</a></li>
-                    <li><a href="./assets/subPages/saved-recipe.html">Saved Recipes</a></li>
+                    <li><a href="/assets/subPages/about-us.html">About Us</a></li>
+                    <li><a href="/assets/subPages/saved-recipe.html">Saved Recipes</a></li>
                   </ul>
                 </div>
               </div>
@@ -59,7 +61,7 @@
           </div>
         </nav>
       </div>
-      <div class="hero-body">
+      <div class="hero-body" style="background-image: url('/assets/images/hero2.png')">
       </div>
     </section>
     <div class="box cta">
@@ -67,9 +69,13 @@
         <span class="tag is-primary">New</span> Here are your saved recipes!
       </p>
     </div>
-
-    <!-- search form -->
-   
+  
+    <!-- display saved recipes -->
+    <div class="container columns" id="savedContainer">
+      <div class="column is-full" id="savedRecipes">
+        <!-- saved recipes load here -->
+      </div>
+    </div>
 
     <!-- recipe cards -->
    
@@ -83,15 +89,15 @@
             <ul>
               <li><a href="#">To the top</a></li>
               <li><a href="">Recipe</a></li>
-              <li><a href="./assets/subPages/about-us.html">About Us</a></li>
+              <li><a href="/about-us.html">About Us</a></li>
               <li><a href="./assets/subPages/saved-recipe.html">Saved Recipe</a></li>
             </ul>
           </div>
              
 
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="./saved_recipe.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+    
   </body>
 </html>
