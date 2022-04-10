@@ -9,11 +9,12 @@ var searchResultsArr = [];
 var advSearchResultsArr = [];
 var idSearchURL = [];
 var spoontacularApiKey = "2bb10ff172ca4ab1b575e13c4f01a5c6"
-var apiURL = '';
+// var apiURL = '';
 
 
 // calls spoontacular recipe api
 function spoontacularAPI(apiURL) {
+  // debugger;
   console.log(apiURL);
   fetch(apiURL)
     .then(function (response) {
@@ -53,6 +54,7 @@ function getCocktail() {
 function loadFoodCards(resultsArr) {
   //for loop generates each card and then appends it to the searchResultsContainer
   for (var i = 0; i < resultsArr.length; i++) {
+    // debugger;
     console.log(resultsArr);
 
     let ingredients = resultsArr[i].ingredients;
@@ -356,6 +358,7 @@ function buildAdvSearchURL(searchParamArr) {
 }
 
 function spoontacularAdvSearch(advSearchURL) {
+  
   var resultsArr = [];
   fetch(advSearchURL)
     .then(function (response) {
@@ -365,8 +368,8 @@ function spoontacularAdvSearch(advSearchURL) {
           resultsArr = data.results;
         })
         .then(function () {
-          // idSearch();
-          ingredientsImg(resultsArr);
+          // workaround until I figure out async await and more about asynchronous functions
+          setTimeout(function(){ingredientsImg(resultsArr)}, 1000);
         })
     })
 }
@@ -414,6 +417,7 @@ function ingredientsImg(resultsArr) {
   var ingredientsArr = [];
 
   for (let i = 0; i < resultsArr.length; i++) {
+    // debugger;
     let id = resultsArr[i].id;
     let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget.png?defaultCss=true&measure=us&apiKey=${spoontacularApiKey}`;
 
@@ -433,7 +437,8 @@ function ingredientsImg(resultsArr) {
       .then(function () {
         // Once all promises are resolved and the for loop reaches its end, pass the resultsArr into getFullRecipeInfo() to capture the remaining details needed to generate the recipe cards. 
         if (i === resultsArr.length - 1) {
-          getFullRecipeInfo(resultsArr);
+          // forces application to wait one second while promises resolve. Not a permafix, just a for right now bandaid.
+          setTimeout(function(){getFullRecipeInfo(resultsArr)}, 1000);
         }
 
       })
@@ -449,7 +454,9 @@ function ingredientsImg(resultsArr) {
 function getFullRecipeInfo(resultsArr) {
 
   for (let i = 0; i < resultsArr.length; i++) {
+    // debugger;
     let id = resultsArr[i].id;
+    
     let apiURL = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${spoontacularApiKey}`;
     // fetch the generated url
     fetch(apiURL)
@@ -465,7 +472,8 @@ function getFullRecipeInfo(resultsArr) {
       //once all promises are fufilled and the loop completes its last run, pass the updated resultsArr into loadFoodCards
       .then(function () {
         if (i === resultsArr.length - 1) {
-          loadFoodCards(resultsArr);
+          //one last time, a patch to the current problem, not a solution. 
+          setTimeout(function(){loadFoodCards(resultsArr)}, 1000);
         }
       })
       .catch(function (err) {

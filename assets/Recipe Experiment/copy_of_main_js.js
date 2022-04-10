@@ -8,7 +8,7 @@ const searchResultsContainer = document.getElementById("searchResults");
 var searchResultsArr = [];
 var advSearchResultsArr = [];
 var idSearchURL = [];
-var spoontacularApiKey = "2bb10ff172ca4ab1b575e13c4f01a5c6"
+var spoonacularApiKey = "2bb10ff172ca4ab1b575e13c4f01a5c6"
 var apiURL = '';
 
 // call cocktail api
@@ -336,12 +336,29 @@ function buildAdvSearchURL(searchParamArr) {
 
   console.log(searchParameters)
 
-  let advSearchURL = `https://api.spoonacular.com/recipes/complexSearch?${searchParameters}&apiKey=${spoontacularApiKey}`;
+  let advSearchURL = `https://api.spoonacular.com/recipes/complexSearch?${searchParameters}&apiKey=${spoonacularApiKey}`;
 
-  spoontacularAdvSearch(advSearchURL);
+  spoonacularAdvSearch(advSearchURL);
 }
 
-function spoontacularAdvSearch(advSearchURL) {
+function spoonacularAdvSearch(advSearchURL) {
+  var resultsArr = [];
+  fetch(advSearchURL)
+    .then(function (response) {
+      response.json()
+      .then(function (data) {
+        
+        resultsArr = data.results;
+      }) 
+        .then(function () {
+          // workaround until I figure out async await and more about asynchronous functions
+          setTimeout(function(){ingredientsImg(resultsArr)}, 1000);
+        // idSearch();  -  not currently in use. After full refactor if this function is not used it will be removed. V.T. 4-10-22
+      })
+    })
+}
+//attempt to convert advSearch to an asynchronous function to be able to use async await, work in progress. 
+async function spoonacularAdvSearch(advSearchURL) {
   var resultsArr = [];
   fetch(advSearchURL)
     .then(function (response) {
@@ -357,6 +374,7 @@ function spoontacularAdvSearch(advSearchURL) {
     })
 }
 
+
 // idSearch currently not in use. it is still here for reference but has been replaced with ingredientsImg()
 
 // function idSearch() {
@@ -366,7 +384,7 @@ function spoontacularAdvSearch(advSearchURL) {
 
 //   for (let i = 0; i < resultsArr.length; i++) {
 //     let id = resultsArr[i].id;
-//     let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget?defaultCss=true&measure=us&apiKey=${spoontacularApiKey}`;
+//     let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget?defaultCss=true&measure=us&apiKey=${spoonacularApiKey}`;
 
 //     fetch(apiURL)
 //       .then(function (response) {
@@ -394,14 +412,14 @@ function spoontacularAdvSearch(advSearchURL) {
 
 // }
 
-//get the ingredients image using the ingredientWidget from spoontacular API
+//get the ingredients image using the ingredientWidget from spoonacular API
 function ingredientsImg(resultsArr) {
 
   var ingredientsArr = [];
 
   for (let i = 0; i < resultsArr.length; i++) {
     let id = resultsArr[i].id;
-    let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget.png?defaultCss=true&measure=us&apiKey=${spoontacularApiKey}`;
+    let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget.png?defaultCss=true&measure=us&apiKey=${spoonacularApiKey}`;
 
     fetch(apiURL)
       .then(function (response) {
@@ -419,7 +437,8 @@ function ingredientsImg(resultsArr) {
       .then(function () {
         // Once all promises are resolved and the for loop reaches its end, pass the resultsArr into getFullRecipeInfo() to capture the remaining details needed to generate the recipe cards. 
         if (i === resultsArr.length - 1) {
-          getFullRecipeInfo(resultsArr);
+          // forces application to wait one second while promises resolve. Not a permafix, just a for right now bandaid.
+          setTimeout(function(){getFullRecipeInfo(resultsArr)}, 1000);
         }
 
       })
@@ -436,7 +455,7 @@ function getFullRecipeInfo(resultsArr){
 
   for (let i = 0; i < resultsArr.length; i++) {
     let id = resultsArr[i].id;
-    let apiURL = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${spoontacularApiKey}`;
+    let apiURL = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${spoonacularApiKey}`;
     // fetch the generated url
       fetch(apiURL)
       // convert the response
@@ -451,7 +470,9 @@ function getFullRecipeInfo(resultsArr){
               //once all promises are fufilled and the loop completes its last run, pass the updated resultsArr into loadFoodCards
               .then(function(){
                 if (i === resultsArr.length - 1) {
-                  loadFoodCards(resultsArr);
+                  //one last time, a patch to the current problem, not a solution. 
+                  setTimeout(function(){loadFoodCards(resultsArr)}, 1000);
+                  
                 }
               })
               .catch(function (err) {
@@ -487,9 +508,9 @@ $("#submit-btn").click(function () {
   var selector = $(this).siblings('#sort').val();
 
   if (selector === 'recipe') {
-    let advSearchURL = `https://api.spoonacular.com/recipes/complexSearch?query=${searchInput}&number=3&apiKey=${spoontacularApiKey}`
+    let advSearchURL = `https://api.spoonacular.com/recipes/complexSearch?query=${searchInput}&number=3&apiKey=${spoonacularApiKey}`
     searchResultsContainer.innerHTML = '';
-    spoontacularAdvSearch(advSearchURL);
+    spoonacularAdvSearch(advSearchURL);
   } else if (selector === 'drink') {
     getCocktail();
   } else {
