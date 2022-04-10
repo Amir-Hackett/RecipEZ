@@ -13,7 +13,7 @@ var savedRecipeArr = [];
 function spoontacularAPI(){
   //spoontacularAPI Key
   var apiKey = "33e1a2adb44145efa8cd514a15f3d98c"
-  var apiURL = `https://api.spoonacular.com/food/search?query=${searchInput}&number=3&apiKey=${apiKey}`
+  var apiURL = `https://api.spoonacular.com/food/search?query=${userInput}&number=3&apiKey=${apiKey}`
 
   fetch(apiURL)
   .then(function(response){
@@ -27,7 +27,7 @@ function spoontacularAPI(){
 
 // call cocktail api
 function getCocktail(){
-  var drinkAPI = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + searchInput;
+  var drinkAPI = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + userInput;
   fetch(drinkAPI)
   .then(
   function(response) {
@@ -52,7 +52,7 @@ function getCocktail(){
 // loads cards based on the search parameters the user selects.
 function loadFoodCards(){
 
-  var recipe = searchResultsArr[0].searchResults[0].results;
+  var recipe = searchResultsArr[i].searchResults[i].results;
   // console.log(recipe);
   searchResultsContainer.innerHTML = '';
   for (var i = 0; i < 3; i++) {
@@ -157,43 +157,43 @@ function dropDownChange(){
 }
 
 //advanced search function
-function advSearchFunction(data) {
-  var searchInput = data;
-  var keyWord = searchInput.siblings('#key-word').val().toLowerCase();
-  var cuisineOptions = searchInput.siblings('#cuisine')[0].children;
-  var cuisineString = '';
+// function advSearchFunction(data) {
+//   var searchInput = data;
+//   var keyWord = searchInput.siblings('#key-word').val().toLowerCase();
+//   var cuisineOptions = searchInput.siblings('#cuisine')[0].children;
+//   var cuisineString = '';
 
-  for (var i = 0; i < cuisineOptions.length; i++){
-    if (cuisineOptions[i].checked){
-      let checkedOption = cuisineOptions[i].previousElementSibling.innerHTML;
-      cuisineString += `${checkedOption},`;
-      console.log(cuisineOptions[i].previousElementSibling.innerHTML);
-    }
-  }
+//   for (var i = 0; i < cuisineOptions.length; i++){
+//     if (cuisineOptions[i].checked){
+//       let checkedOption = cuisineOptions[i].previousElementSibling.innerHTML;
+//       cuisineString += `${checkedOption},`;
+//       console.log(cuisineOptions[i].previousElementSibling.innerHTML);
+//     }
+//   }
   
-  var excludeItems = '';
+//   var excludeItems = '';
 
   
 
-  // console.log(keyWord);
-  console.log(data.siblings('#cuisine'));
-}
-
-// function callFavorites() {
-
-//   var apiKey = "33e1a2adb44145efa8cd514a15f3d98c"
-//   var apiURL = `https://api.spoonacular.com/food/search?query=${}&number=3&apiKey=${apiKey}`
-
-//   fetch(apiURL)
-//   .then(function(response){
-//       response.json().then(function(data){
-//         searchResultsArr.push(data);
-//       }).then(function() {
-//         console.log(searchResultsArr)
-//         loadCards();
-//       }) 
-//   })
+//   // console.log(keyWord);
+//   console.log(data.siblings('#cuisine'));
 // }
+
+function callFavorites() {
+
+  var apiKey = "33e1a2adb44145efa8cd514a15f3d98c"
+  var apiURL = `https://api.spoonacular.com/food/search?query=${userInput}&number=3&apiKey=${apiKey}`
+
+  fetch(apiURL)
+  .then(function(response){
+      response.json().then(function(data){
+        searchResultsArr.push(data);
+      }).then(function() {
+        console.log(searchResultsArr)
+        loadCards();
+      }) 
+  })
+}
 
 //save favorite recipe function
 function saveRecipes(recipeId, event) {
@@ -216,7 +216,35 @@ function saveRecipes(recipeId, event) {
   console.log('retrievedObject: ', JSON.parse(retrievedObject));
 }
 
-function saveDrinks(drinkId) {
+function displaySavedRecipe(recipe) {
+  //display saved recipe content from local storage
+var retrievedObject = JSON.parse(localStorage.getItem('Recipe'));
+var savedRecipeContainer = document.getElementById("savedContainer");
+
+// console.log('retrievedObject: ', JSON.parse(retrievedObject));
+
+for (var i = 0; i < localStorage.length; i++) {
+  var key = localStorage.key(i);
+  var value = localStorage.getItem(key);
+  var recipe = JSON.parse(value);
+  console.log(recipe);
+  var recipeDiv = document.createElement("div");
+  recipeDiv.className = "savedRecipe";
+  var recipeTitle = document.createElement("h3");
+  recipeTitle.innerHTML = recipe.title;
+  var recipeImage = document.createElement("img");
+  var recipeLink = recipe.link;
+  recipeImage.src = recipe.image;
+  recipeLink.innerHTML = "View Recipe";
+  recipeDiv.appendChild(recipeTitle);
+  recipeDiv.appendChild(recipeImage);
+  recipeDiv.appendChild(recipeLink);
+  savedRecipeContainer.appendChild(recipeDiv);
+}
+callFavorites();
+}
+
+function saveDrinks(drinkId, event) {
   console.log(drinkId)
   console.log('made it into the save drinks function')
 
@@ -233,7 +261,7 @@ $("#adv-search-btn").click(function(){
 
 // event listener for the quick search
 $("#submit-btn").click(function() {
-  searchInput = $(this).siblings("#searchInput").val().toLowerCase();
+  userInput = $(this).siblings("#searchInput").val().toLowerCase();
   var selector = $(this).siblings('#sort').val();
   if (selector === 'recipe'){
     spoontacularAPI();
@@ -279,3 +307,5 @@ $("#searchResults").click(function(event){
 $("adv-search-btn").click(function(){
   advSearchFunction();
 });
+
+
