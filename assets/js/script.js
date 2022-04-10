@@ -79,7 +79,7 @@ function loadFoodCards(resultsArr) {
             ${resultsArr[i].fullInfo.instructions}
           </p>
 
-          <p><a href="${resultsArr[i].fullInfo.souceUrl}">See Full Recipe</a></p>
+          <p><a href="${resultsArr[i].fullInfo.sourceUrl}">See Full Recipe</a></p>
           <p>
             <label for="favorite">Click to save favorite: </label>
           </p>
