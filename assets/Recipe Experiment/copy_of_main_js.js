@@ -40,15 +40,12 @@ function getCocktail() {
 
 // dynamically generates recipe cards based on the search parameters the user selects.
 function loadFoodCards(resultsArr) {
-
-  let recipe = resultsArr;
-
-  console.log(recipe[0].fullInfo);
   //for loop generates each card and then appends it to the searchResultsContainer
-  for (var i = 0; i < recipe.length; i++) {
+  for (var i = 0; i < resultsArr.length; i++) {
+    console.log(resultsArr);
 
-    let ingredients = recipe[i].ingredients;
-    let instructions = recipe[i].fullInfo.instructions
+    let ingredients = resultsArr[i].ingredients;
+    let instructions = resultsArr[i].fullInfo.instructions;
     
 
     // replace the innerHTML of the cards container with a dynamically generated template literal
@@ -58,10 +55,10 @@ function loadFoodCards(resultsArr) {
       <div class="card-image has-text-centered">
         <i class="fa-solid fa-utensils"></i>
       </div>
-      <div class="card-content" data-recipeid="${recipe[i].id}">
+      <div class="card-content" data-recipeid="${resultsArr[i].id}">
         <div class="content">
-          <img src="${recipe[i].image}"/>
-          <h4>${recipe[i].title}</h4>
+          <img src="${resultsArr[i].image}"/>
+          <h4>${resultsArr[i].title}</h4>
 
           <img src="${ingredients}" alt="Ingredients Image" />
           <p> Instructions: <br/>
@@ -339,13 +336,17 @@ function buildAdvSearchURL(searchParamArr) {
 }
 
 function spoontacularAdvSearch(advSearchURL) {
+  var resultsArr = [];
   fetch(advSearchURL)
     .then(function (response) {
-      response.json().then(function (data) {
-        advSearchResultsArr.push(data);
-      }).then(function () {
+      response.json()
+      .then(function (data) {
+        
+        resultsArr = data.results;
+      }) 
+        .then(function () {
         // idSearch();
-        ingredientsImg();
+        ingredientsImg(resultsArr);
       })
     })
 }
@@ -388,9 +389,8 @@ function spoontacularAdvSearch(advSearchURL) {
 // }
 
 //get the ingredients image using the ingredientWidget from spoontacular API
-function ingredientsImg() {
+function ingredientsImg(resultsArr) {
 
-  let resultsArr = advSearchResultsArr[0].results;
   var ingredientsArr = [];
 
   for (let i = 0; i < resultsArr.length; i++) {
@@ -404,7 +404,6 @@ function ingredientsImg() {
       })
       .then(function (data) {
         //this is the url to the PNG of the ingredients that needs to be appended to the recipe cards
-        console.log(data)
         ingredientsArr.push(data);
       })
       // this function adds the PNG image url from the previous function to the results array as a parameter with the text string as a value
@@ -453,7 +452,7 @@ function getFullRecipeInfo(resultsArr){
 //save favorite recipe function
 function saveRecipes(recipeId) {
   console.log(recipeId)
-  console.log('made it into the save recipes function')
+  console.log(recipeArr)
 
 }
 
@@ -478,6 +477,7 @@ $("#submit-btn").click(function () {
 
   if (selector === 'recipe') {
     let advSearchURL = `https://api.spoonacular.com/recipes/complexSearch?query=${searchInput}&number=3&apiKey=${spoontacularApiKey}`
+    searchResultsContainer.innerHTML = '';
     spoontacularAdvSearch(advSearchURL);
   } else if (selector === 'drink') {
     getCocktail();
