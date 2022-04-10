@@ -45,14 +45,11 @@ function loadFoodCards(resultsArr){
 
  console.log(recipe);
   
-  for (var i = 0; i < 1; i++) {
+  for (var i = 0; i < 3; i++) {
 
-    let ingredients = recipe[0].ingredients;
-    var div = document.createElement("div");
-    div.textContent = ingredients; 
-    searchResultsContainer.appendChild(div)
+    let ingredients = recipe[i].ingredients;
+    // console.log(recipe[i].ingredients)
 
-    
 
       searchResultsContainer.innerHTML += 
    `
@@ -229,7 +226,7 @@ function advSearchFunction(data) {
         //Input field variable value check, if they have a valid value then push the variable in the form of an object with the parameter name used by the spootacular API to the search parameters array
       if(keyword.length > 0) {
         let obj = {};
-        obj[`${rec}`] = `&query=${keyword}`;
+        obj['parameter'] = `&query=${keyword}`;
         searchParamArr.push(obj);
       }
     
@@ -361,19 +358,24 @@ function spoontacularAdvSearch(advSearchURL){
           return data
 
         }).then(function(data){
-          
+          //this is the HTML that needs to be appended to the recipe cards
+          console.log(data)
           ingredientsArr.push(data);
         })
+        // this function add the HTML string from the previous function to the results array as a parameter with the text string as a value
             .then(function(){
             resultsArr[i].ingredients = `${ingredientsArr[i]}`;
+            })
+            .then(function(){
+              // execule load cards function after the fetch request promises are resloved. 
+              if (i === resultsArr.length - 1){
+                 loadFoodCards(resultsArr);
+              }
+             
             });
             
-          
-        
-          
-      
       }
-    loadFoodCards(resultsArr);
+    
   }
 
 
