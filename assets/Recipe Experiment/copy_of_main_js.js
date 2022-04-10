@@ -10,21 +10,9 @@ var advSearchResultsArr = [];
 var idSearchURL = [];
 var spoontacularApiKey = "33e1a2adb44145efa8cd514a15f3d98c"
 var apiURL = '';
-var ingredientWidget = 'https://api.spoonacular.com/recipes/511728/ingredientWidget?apiKey=33e1a2adb44145efa8cd514a15f3d98c'
 
 
-// call spoontacular recipe api
-// function spoontacularAPI(apiURL){
-// console.log(apiURL);
-//   fetch(apiURL)
-//   .then(function(response){
-//       response.json().then(function(data){
-//         searchResultsArr.push(data);
-//       }).then(function() {
-//         loadFoodCards();
-//       }) 
-//   })
-// }
+
 
 // call cocktail api
 function getCocktail(){
@@ -388,23 +376,6 @@ function spoontacularAdvSearch(advSearchURL){
     loadFoodCards(resultsArr);
   }
 
-
-
-// function callFavorites() {
-
-//   var apiKey = "33e1a2adb44145efa8cd514a15f3d98c"
-//   let apiURL = `https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=false&apiKey=${apiKey}`
-
-//   fetch(apiURL)
-//   .then(function(response){
-//       response.json().then(function(data){
-//         searchResultsArr.push(data);
-//       }).then(function() {
-//         console.log(searchResultsArr)
-//         loadCards();
-//       }) 
-//   })
-// }
 
 //save favorite recipe function
 function saveRecipes(recipeId) {
