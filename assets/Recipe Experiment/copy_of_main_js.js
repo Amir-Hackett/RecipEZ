@@ -53,14 +53,24 @@ function getCocktail(){
 // loads cards based on the search parameters the user selects.
 function loadFoodCards(resultsArr){
 
+  let recipe = resultsArr;
 
- console.log(resultsArr);
-  
+ console.log(recipe[0].ingredients);
+//  console.log(ingredients)
+
   
   searchResultsContainer.innerHTML = '';
-  for (var i = 0; i < 3; i++) {
-  
-   searchResultsContainer.innerHTML += 
+  for (var i = 0; i < 1; i++) {
+    let str = recipe[i].ingredinets;
+    var stringToHTML = () => {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(str, 'text/xml');
+
+      console.log(doc.body);
+    } 
+    //  console.log(stringToHTML)
+
+      searchResultsContainer.innerHTML += 
    `
     <div class="card is-shady column is-4">
       <div class="card-image has-text-centered">
@@ -69,19 +79,19 @@ function loadFoodCards(resultsArr){
       <div class="card-content" data-recipeid="${recipe[i].id}">
         <div class="content">
           <img src="${recipe[i].image}"/>
-          <h4>${recipe[i].name}</h4>
-          <p>
-            ${recipe[i].content}
-          </p>
-          <p><a href="${recipe[i].link}">See Full Recipe</a></p>
+          <h4>${recipe[i].title}</h4>`
+          
+            + ingredients +
+          
+         ` <p><a href="${recipe[i].link}">See Full Recipe</a></p>
           <p>
             <label for="favorite">Click to save favorite: </label>
           </p>
         </div>
         <button>Save Recipe</button>
       </div>
-    </div>
-    `
+    </div>`
+    
   }
     clearResultsArray();
 }
@@ -363,16 +373,21 @@ function spoontacularAdvSearch(advSearchURL){
 
       fetch(apiURL)
       .then(function(response){
-          return response;
-        }) .then(function(data){
-          ingredientsArr.push(data.url)
-          }).then(function(){
-            console.log(ingredientsArr[i])
-          }).then(function(){
+         response.text().then(function(text){
+          // var htmlString = text;
+          ingredientsArr.push(text)
+        // var doc = new DOMParser.parseFromString(htmlString, 'text/html');
+
+          // console.log(htmlString)
+          // ingredientsArr.push(response)
+        })
+        .then(function(){
             resultsArr[i].Ingredients = `${ingredientsArr[i]}`;
-          });
+        });
+        
+          })
       
-    }
+      }
     loadFoodCards(resultsArr);
   }
 
