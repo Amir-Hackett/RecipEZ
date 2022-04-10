@@ -292,11 +292,19 @@ function advSearchFunction(data) {
       searchParamArr.push(obj);
     }
 
-    if (maxResults > 0 && maxResults < 100) {
+    
+    if(isNaN(maxResults)){
+      let obj = {};
+      maxResults = 3;
+      obj['parameter'] = `&number=${maxResults}`;
+      searchParamArr.push(obj);
+    } else if (maxResults > 0 && maxResults < 100){
       let obj = {};
       obj['parameter'] = `&number=${maxResults}`;
       searchParamArr.push(obj);
     }
+    
+  
   }
 
   buildParamArray();
@@ -313,13 +321,13 @@ function advSearchFunction(data) {
   // console.log(`max-calories: ${maxCalories}`);
   // console.log(`max-sugar: ${maxSugar}`);
   // console.log(`max carbs: ${maxCarbs}`);
-  // console.log(`max results: ${maxResults}`);
+  console.log(`max results: ${maxResults}`);
   // console.log(`sort by: ${sortBy}`);
 }
 
 function buildAdvSearchURL(searchParamArr) {
   let searchArr = searchParamArr;
-  console.log(searchArr);
+  // console.log(searchArr);
   var searchParameters = '';
 
   for (let i = 0; i < searchArr.length; i++) {
