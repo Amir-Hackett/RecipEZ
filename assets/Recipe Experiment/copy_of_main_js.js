@@ -51,15 +51,10 @@ function getCocktail(){
     
 
 // loads cards based on the search parameters the user selects.
-function loadFoodCards(){
-  // console.log(searchResultsArr[0].searchResults);
-  if (searchResultsArr[0].searchResults){
-    var recipe = searchResultsArr[0].searchResults[0].results;
-  } else {
-    recipe = searchResultsArr[0].results;
-  };
+function loadFoodCards(resultsArr){
 
- console.log(recipe);
+
+ console.log(resultsArr);
   
   
   searchResultsContainer.innerHTML = '';
@@ -240,7 +235,7 @@ function advSearchFunction(data) {
         //Input field variable value check, if they have a valid value then push the variable in the form of an object with the parameter name used by the spootacular API to the search parameters array
       if(keyword.length > 0) {
         let obj = {};
-        obj['parameter'] = `&query=${keyword}`;
+        obj[`${rec}`] = `&query=${keyword}`;
         searchParamArr.push(obj);
       }
     
@@ -361,32 +356,27 @@ function spoontacularAdvSearch(advSearchURL){
 
     let resultsArr = advSearchResultsArr[0].results;
     var ingredientsArr = [];
+
     for (let i = 0; i < resultsArr.length; i++){
       let id = resultsArr[i].id;
-      let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget?apiKey=${spoontacularApiKey} `
+      let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget?apiKey=${spoontacularApiKey}`;
 
       fetch(apiURL)
       .then(function(response){
-          ingredientsArr.push(response.url);
-      })
+          return response;
+        }) .then(function(data){
+          ingredientsArr.push(data.url)
+          }).then(function(){
+            console.log(ingredientsArr[i])
+          }).then(function(){
+            resultsArr[i].Ingredients = `${ingredientsArr[i]}`;
+          });
+      
     }
-
-    for (let i = 0; i < resultsArr.length; i++) {
-      resultsArr[i].Ingredients = ingredientsArr[i];
+    loadFoodCards(resultsArr);
   }
 
-    // mergeArrays(resultsArr, ingredientsArr);
-  }
 
-  function mergeArrays (resultsArr, ingredientsArr){
-
-    
-    var recipeArr = resultsArr.map(function (item, i) {
-        return ({ ...item, ingredients: ingredientsArr[i] });
-      });
-    console.log(recipeArr)
-
-  }
 
 // function callFavorites() {
 
