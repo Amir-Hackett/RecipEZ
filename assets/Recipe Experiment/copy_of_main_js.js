@@ -38,21 +38,20 @@ function getCocktail() {
 }
 
 
-// loads cards based on the search parameters the user selects.
+// dynamically generates recipe cards based on the search parameters the user selects.
 function loadFoodCards(resultsArr) {
 
   let recipe = resultsArr;
 
   console.log(recipe[0].fullInfo);
-
+  //for loop generates each card and then appends it to the searchResultsContainer
   for (var i = 0; i < recipe.length; i++) {
 
     let ingredients = recipe[i].ingredients;
     let instructions = recipe[i].fullInfo.instructions
     
-    // console.log(instructions)
 
-
+    // replace the innerHTML of the cards container with a dynamically generated template literal
     searchResultsContainer.innerHTML +=
       `
     <div class="card is-shady column is-4">
@@ -79,11 +78,14 @@ function loadFoodCards(resultsArr) {
     </div>`
 
   }
+  // this may be redundant but since the drinks functions use this global variable it will clear the array after the food cards are generated and loaded.
   clearResultsArray();
 }
 
+//clears the search results array.
 function clearResultsArray() {
   searchResultsArr = [];
+  
 }
 
 function loadDrinkCards() {
@@ -348,7 +350,7 @@ function spoontacularAdvSearch(advSearchURL) {
     })
 }
 
-// idSearch currently not in use. 
+// idSearch currently not in use. it is still here for reference but has been replaced with ingredientsImg()
 
 // function idSearch() {
 
@@ -410,7 +412,7 @@ function ingredientsImg() {
         resultsArr[i].ingredients = ingredientsArr[i];
       })
       .then(function () {
-        // execute load cards function after the fetch request promises are resloved. 
+        // Once all promises are resolved and the for loop reaches its end, pass the resultsArr into getFullRecipeInfo() to capture the remaining details needed to generate the recipe cards. 
         if (i === resultsArr.length - 1) {
           getFullRecipeInfo(resultsArr);
         }
@@ -421,30 +423,30 @@ function ingredientsImg() {
 
 }
 
+//makes another get request to find the complete recipe information for a particular recipe based on its ID, then it appends that object to the coresponding recipe in the resultsArr
 function getFullRecipeInfo(resultsArr){
-  // let resultsArr = resultsArr;
-  let dataArr = [];
 
   for (let i = 0; i < resultsArr.length; i++) {
     let id = resultsArr[i].id;
     let apiURL = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${spoontacularApiKey}`;
+    // fetch the generated url
       fetch(apiURL)
+      // convert the response
         .then(function(response){
           var data = response.json();
-          // response.json()
           return data
         })
+          //append the response object to the corresponding index of the resultsArr
           .then(function(data){
               resultsArr[i].fullInfo = data;
             })
+              //once all promises are fufilled and the loop completes its last run, pass the updated resultsArr into loadFoodCards
               .then(function(){
                 if (i === resultsArr.length - 1) {
                   loadFoodCards(resultsArr);
                 }
               })
   }
-  // console.log(dataArr);
-  // console.log(resultsArr);
 } 
 
 
@@ -519,7 +521,7 @@ $("#searchResults").click(function (event) {
 $("adv-search-btn").click(function () {
   advSearchFunction();
 });
-
+//clears the search resultsArr and sets the results container innerHTML to an empty string. This was added in the event of a function failure bricking the page but has proved handy outside of that specific purpose. 
 $("#clear").click(function () {
   searchResultsContainer.innerHTML = '';
   searchResultsArr = [];
