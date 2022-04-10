@@ -55,20 +55,16 @@ function loadFoodCards(resultsArr){
 
   let recipe = resultsArr;
 
- console.log(recipe[0].ingredients);
-//  console.log(ingredients)
-
+ console.log(recipe);
   
-  searchResultsContainer.innerHTML = '';
   for (var i = 0; i < 1; i++) {
-    let str = recipe[i].ingredinets;
-    var stringToHTML = () => {
-      var parser = new DOMParser();
-      var doc = parser.parseFromString(str, 'text/xml');
 
-      console.log(doc.body);
-    } 
-    //  console.log(stringToHTML)
+    let ingredients = recipe[0].ingredients;
+    var div = document.createElement("div");
+    div.textContent = ingredients; 
+    searchResultsContainer.appendChild(div)
+
+    
 
       searchResultsContainer.innerHTML += 
    `
@@ -369,23 +365,24 @@ function spoontacularAdvSearch(advSearchURL){
 
     for (let i = 0; i < resultsArr.length; i++){
       let id = resultsArr[i].id;
-      let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget?apiKey=${spoontacularApiKey}`;
+      let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget?defaultCss=true&measure=us&apiKey=${spoontacularApiKey}`;
 
       fetch(apiURL)
-      .then(function(response){
-         response.text().then(function(text){
-          // var htmlString = text;
-          ingredientsArr.push(text)
-        // var doc = new DOMParser.parseFromString(htmlString, 'text/html');
+        .then(function(response){
+          var data = response.text()
+          return data
 
-          // console.log(htmlString)
-          // ingredientsArr.push(response)
+        }).then(function(data){
+          
+          ingredientsArr.push(data);
         })
-        .then(function(){
-            resultsArr[i].Ingredients = `${ingredientsArr[i]}`;
-        });
+            .then(function(){
+            resultsArr[i].ingredients = `${ingredientsArr[i]}`;
+            });
+            
+          
         
-          })
+          
       
       }
     loadFoodCards(resultsArr);
