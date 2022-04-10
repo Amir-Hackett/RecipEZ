@@ -11,9 +11,6 @@ var idSearchURL = [];
 var spoontacularApiKey = "2bb10ff172ca4ab1b575e13c4f01a5c6"
 var apiURL = '';
 
-
-
-
 // call cocktail api
 function getCocktail() {
   var drinkAPI = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + searchInput;
@@ -55,7 +52,7 @@ function loadFoodCards(resultsArr) {
       <div class="card-image has-text-centered">
         <i class="fa-solid fa-utensils"></i>
       </div>
-      <div class="card-content" data-recipeid="${resultsArr[i].id}">
+      <div class="card-content" data-recipeobject="${resultsArr[i]}">
         <div class="content">
           <img src="${resultsArr[i].image}"/>
           <h4>${resultsArr[i].title}</h4>
@@ -457,9 +454,8 @@ function getFullRecipeInfo(resultsArr){
 
 
 //save favorite recipe function
-function saveRecipes(recipeId) {
-  console.log(recipeId)
-  console.log(recipeArr)
+function saveRecipes(recipeObject) {
+  console.log(recipeObject)
 
 }
 
@@ -514,8 +510,8 @@ $("#searchResults").click(function (event) {
     // console.log(target.dataset.drinkid)
 
   } else if ('recipeid' in target.dataset === true) {
-    let recipeId = target.dataset.recipeid;
-    saveRecipes(recipeId);
+    let recipeObject = target.dataset.recipeobject;
+    saveRecipes(recipeObject);
     // console.log(target.dataset.recipeid)
 
   } else {
