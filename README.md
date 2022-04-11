@@ -65,5 +65,7 @@
 </ul>
 
 <h3 id="mock-up">Mock Up</h3>
-<br>
+
+The following animation demonstrates the application functionality:
+![recording of index.html](./assets/misc/screen-record.gif)
 
