@@ -62,7 +62,6 @@ function loadDrinkCards() {
       var measure = drinks[i]["strMeasure" + [x]];
       if (measure != null) {
         strMeasureArr.push(measure);
-        console.log(strMeasureArr);
       }
     }
     //find all ingredient properties, if they have a value not equal to null push them to their respective array
@@ -428,13 +427,43 @@ function getFullRecipeInfo(resultsArr) {
       });
   }
 }
+// local storage is experimental for now, plans to use this information in the future. Ideally we would like the information stored on a server where it can be permanently saved to a user profile.
+// save favorite recipe function
 
-//save favorite recipe function
-function saveRecipes(recipeId) {
+var drinkIdArr = [];
+
+function saveDrinksId(drinkId) {
+
+  console.log(drinkId)
+  let id = drinkId;
+  let key = "drinkId"
+  drinkIdArr.push(id);
+  localStorage.setItem(key, JSON.stringify(drinkIdArr));
   
+  loadDrinksId();
 }
-function saveDrinks(drinkId) {
+
+loadDrinksId => {
+  idArr = JSON.parse(localStorage.getItem("drinkId"))
+  drinkIdArr = idSearchURL;
+}
+
+var recipeIdArr = [];
+
+function saveRecipeId(recipeId) {
+
+  console.log(recipeId)
+  let id = recipeId;
+  let key = "recipeId"
+  recipeIdArr.push(id);
+  localStorage.setItem(key, JSON.stringify(recipeIdArr));
   
+  loadrecipesId();
+}
+
+loadRecipesId => {
+  idArr = JSON.parse(localStorage.getItem("recipeId"))
+  recipeIdArr = idSearchURL;
 }
 
 //event listener for the advanced search form (food only)
@@ -445,7 +474,7 @@ $("#adv-search-btn").click(function () {
 
 // event listener for the quick search
 $("#submit-btn").click(function () {
-  var searchInput = $(this).siblings("#searchInput").val().toLowerCase();
+  searchInput = $(this).siblings("#searchInput").val().toLowerCase();
   var selector = $(this).siblings("#sort").val();
 
   if (selector === "recipe") {
@@ -477,11 +506,11 @@ $("#searchResults").click(function (event) {
   // if statement to determine if the data-set attribute is for a food or a drink card, this way the id#'s can be stored in different arrays
   if ("drinkid" in target.dataset === true) {
     let drinkId = target.dataset.drinkid;
-    saveDrinks(drinkId);
+    saveDrinksId(drinkId);
     // console.log(target.dataset.drinkid)
   } else if ("recipeid" in target.dataset === true) {
     let recipeId = target.dataset.recipeid;
-    saveRecipes(recipeId);
+    saveRecipeId(recipeId);
     // console.log(target.dataset.recipeid)
   } else {
     console.log("nothing is logged");
