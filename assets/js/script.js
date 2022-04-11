@@ -466,6 +466,7 @@ loadRecipesId => {
   recipeIdArr = idSearchURL;
 }
 
+
 //event listener for the advanced search form (food only)
 $("#adv-search-btn").click(function () {
   var data = $(this);
@@ -502,6 +503,7 @@ input.addEventListener("keyup", function (event) {
 
 // food save favorite click listener
 $("#searchResults").click(function (event) {
+  // debugger;
   let target = event.target.parentElement;
   // if statement to determine if the data-set attribute is for a food or a drink card, this way the id#'s can be stored in different arrays
   if ("drinkid" in target.dataset === true) {
