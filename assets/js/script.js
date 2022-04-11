@@ -11,19 +11,31 @@ var idSearchURL = [];
 var spoontacularApiKey = "2bb10ff172ca4ab1b575e13c4f01a5c6"
 // var apiURL = '';
 
+// this is not currently being used, it has been replaced with async version of the function. 
+// // calls spoontacular recipe api
+// function spoontacularAPI(apiURL) {
+//   // debugger;
+//   console.log(apiURL);
+//   fetch(apiURL)
+//     .then(function (response) {
+//       response.json().then(function (data) {
+//         searchResultsArr.push(data);
+//       }).then(function () {
+//         loadFoodCards();
+//       })
+//     })
+// }
 
-// calls spoontacular recipe api
-function spoontacularAPI(apiURL) {
-  // debugger;
-  console.log(apiURL);
-  fetch(apiURL)
-    .then(function (response) {
-      response.json().then(function (data) {
-        searchResultsArr.push(data);
-      }).then(function () {
-        loadFoodCards();
-      })
-    })
+const fetchSpoonacular = async (apiURL) => {
+  try {
+    const response = await fetch(apiURL);
+    const resultArr = await response.json()
+    console.log(resultArr);
+    spoonacularAdvSearch()
+  } catch (err) {
+    console.error(`Error in fetchSpoonacular: ${err}`);
+  };
+
 }
 
 // call cocktail api
@@ -354,62 +366,46 @@ function buildAdvSearchURL(searchParamArr) {
 
   let advSearchURL = `https://api.spoonacular.com/recipes/complexSearch?${searchParameters}&apiKey=${spoontacularApiKey}`;
 
-  spoontacularAdvSearch(advSearchURL);
+  spoonacularAdvSearch(advSearchURL);
 }
 
-function spoontacularAdvSearch(advSearchURL) {
-  
-  var resultsArr = [];
-  fetch(advSearchURL)
-    .then(function (response) {
-      response.json()
-        .then(function (data) {
 
-          resultsArr = data.results;
-        })
-        .then(function () {
-          // workaround until I figure out async await and more about asynchronous functions
-          setTimeout(function(){ingredientsImg(resultsArr)}, 1000);
-        })
-    })
+
+const spoonacularAdvSearch = async(advSearchURL) => {
+  try { 
+    let response = await fetch(advSearchURL);
+    let data = await response.json();
+    let resultsArr = data.results;
+    console.log('made it to new adv search arr')
+    spoonacularIngredientsImg(resultsArr);
+  } catch (err){
+    console.error(`Error in adv search: ${err}`);
+  }
+
 }
 
-// idSearch currently not in use. it is still here for reference but has been replaced with ingredientsImg()
-
-// function idSearch() {
-
-//   let resultsArr = advSearchResultsArr[0].results;
-//   var ingredientsArr = [];
-
-//   for (let i = 0; i < resultsArr.length; i++) {
-//     let id = resultsArr[i].id;
-//     let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget?defaultCss=true&measure=us&apiKey=${spoontacularApiKey}`;
-
-//     fetch(apiURL)
-//       .then(function (response) {
-//         var data = response.text()
-//         return data
-
-//       }).then(function (data) {
-//         //this is the HTML that needs to be appended to the recipe cards
-//         console.log(data)
-//         ingredientsArr.push(data);
-//       })
-//       // this function add the HTML string from the previous function to the results array as a parameter with the text string as a value
-//       .then(function () {
-//         resultsArr[i].ingredients = `${ingredientsArr[i]}`;
-//       })
-//       .then(function () {
-//         // execute load cards function after the fetch request promises are resloved. 
-//         if (i === resultsArr.length - 1) {
-//           loadFoodCards(resultsArr);
-//         }
-
-//       });
-
-//   }
-
-// }
+const spoonacularIngredientsImg = async(resultsArr) => {
+  try {
+        console.log('made it into new image function')
+        let ingredientsArr = [];
+        for (let i = 0; i < resultsArr.length; i++){
+          // console.log('made it into image loop')
+           var id = resultsArr[i].id;
+           let apiURL = `https://api.spoonacular.com/recipes/${id}/ingredientWidget.png?defaultCss=true&measure=us&apiKey=${spoontacularApiKey}`;
+           let response = await fetch(apiURL);
+           let data = await response;
+           ingredientsArr.push(data.url);
+           resultsArr[i].ingredients = ingredientsArr[i];
+        // Once all promises are resolved and the for loop reaches its end, pass the resultsArr into getFullRecipeInfo() to capture the remaining details needed to generate the recipe cards. 
+          if (i === resultsArr.length - 1) {
+            // console.log('made it to the end of new image function')
+            getFullRecipeInfo(resultsArr);
+          }        
+      }
+      } catch(err) {
+    console.error(`Error in IngredientsImg: ${err}`)
+  }
+}
 
 //get the ingredients image using the ingredientWidget from spoontacular API
 function ingredientsImg(resultsArr) {
@@ -503,13 +499,14 @@ $("#adv-search-btn").click(function () {
 
 // event listener for the quick search
 $("#submit-btn").click(function () {
-  searchInput = $(this).siblings("#searchInput").val().toLowerCase();
+  var searchInput = $(this).siblings("#searchInput").val().toLowerCase();
   var selector = $(this).siblings('#sort').val();
 
   if (selector === 'recipe') {
     let advSearchURL = `https://api.spoonacular.com/recipes/complexSearch?query=${searchInput}&number=3&apiKey=${spoontacularApiKey}`
     searchResultsContainer.innerHTML = '';
-    spoontacularAdvSearch(advSearchURL);
+    // spoontacularAdvSearch(advSearchURL);
+    spoonacularAdvSearch(advSearchURL)
   } else if (selector === 'drink') {
     getCocktail();
   } else {
