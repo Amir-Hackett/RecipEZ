@@ -153,10 +153,12 @@ function advSearchFunction(data) {
 //   })
 // }
 
+var savedRecipeArr = [];
+
 //save favorite recipe function
 function saveRecipes(target) {
   //declare variable of saved recipe content
-  var savedRecipe = dataset.recipeid;
+  var savedRecipe = target.dataset.recipeid;
   savedRecipeArr.push(savedRecipe);
   console.log(savedRecipeArr);
 
@@ -164,9 +166,9 @@ function saveRecipes(target) {
   localStorage.setItem('Recipe', JSON.stringify(savedRecipeArr));
 
 //display saved recipe content from local storage
-  var retrievedObject = localStorage.getItem('Recipe');
+  // var retrievedObject = localStorage.getItem('Recipe');
 
-  console.log('retrievedObject: ', JSON.parse(retrievedObject));
+  // console.log('retrievedObject: ', JSON.parse(retrievedObject));
 
 }
 
@@ -194,7 +196,7 @@ $("#submit-btn").click(function() {
 $("#recipeSearchResults").click(function(event){
   let target = event.target.parentElement;
   console.log(target.dataset.recipeid)
-  // saveRecipes(target);
+  saveRecipes(target);
 });
 
 //event listener for the advanced search form (food only)
