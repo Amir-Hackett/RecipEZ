@@ -8,7 +8,7 @@ const searchResultsContainer = document.getElementById("searchResults");
 var searchResultsArr = [];
 var advSearchResultsArr = [];
 var idSearchURL = [];
-var spoontacularApiKey = "2bb10ff172ca4ab1b575e13c4f01a5c6"
+var spoontacularApiKey = "2bb10ff172ca4ab1b575e13c4f01a5c6";
 // var apiURL = '';
 
 
@@ -68,7 +68,7 @@ function loadFoodCards(resultsArr) {
       <div class="card-image has-text-centered">
         <i class="fa-solid fa-utensils"></i>
       </div>
-      <div class="card-content" data-recipeobject="${resultsArr[i]}">
+      <div class="card-content" data-recipeid="${resultsArr[i]}">
         <div class="content">
           <img src="${resultsArr[i].image}"/>
           <h4>${resultsArr[i].title}</h4>
@@ -411,23 +411,24 @@ function spoontacularAdvSearch(advSearchURL) {
 
 // }
 
-var savedRecipeArr = [];
+// var savedRecipeArr = [];
 
-//save favorite recipe function
-function saveRecipes(target) {
-  //declare variable of saved recipe content
-  var savedRecipe = target.dataset.recipeid;
-  savedRecipeArr.push(savedRecipe);
-  console.log(savedRecipeArr);
+// //save favorite recipe function
+// function saveRecipes(id) {
+//   //declare variable of saved recipe content
+//   // var savedRecipe = target.dataset.recipeid;
 
-//save recipe content to local storage
-  localStorage.setItem('Recipe', JSON.stringify(savedRecipeArr));
+//   savedRecipeArr.push(id);
+//   console.log(savedRecipeArr);
 
-//display saved recipe content from local storage
-  // var retrievedObject = localStorage.getItem('Recipe');
+// //save recipe content to local storage
+//   localStorage.setItem('Recipe', JSON.stringify(savedRecipeArr));
 
-  // console.log('retrievedObject: ', JSON.parse(retrievedObject));
+// //display saved recipe content from local storage
+//   // var retrievedObject = localStorage.getItem('Recipe');
 
+//   // console.log('retrievedObject: ', JSON.parse(retrievedObject));
+// }
 
 
 //get the ingredients image using the ingredientWidget from spoontacular API
@@ -502,16 +503,26 @@ function getFullRecipeInfo(resultsArr) {
 }
 
 //save favorite recipe function
-function saveRecipes(recipeObject) {
-  console.log(recipeObject)
-
+function saveRecipes(recipeId) {
+  console.log('made it into the save recipe function')
+  
 }
-function saveDrinks(drinkId) {
+var drinkIdArr = [];
+// experimental for now, plans to use this information in the future. 
+function saveId(drinkId) {
 
   console.log(drinkId)
-  console.log('made it into the save drinks function')
+  let drinkIdArr = [];
+  let id = drinkId;
+  let key = "drinkId"
+  drinkIdArr.push(id);
+  localStorage.setItem(key, JSON.stringify(drinkIdArr));
+
+  
+  // console.log('made it into the save drinks function')
 
 }
+
 
 //event listener for the advanced search form (food only)
 $("#adv-search-btn").click(function () {
@@ -549,16 +560,17 @@ input.addEventListener("keyup", function (event) {
 
 // food save favorite click listener
 $("#searchResults").click(function (event) {
+  // debugger;
   let target = event.target.parentElement;
   // if statement to determine if the data-set attribute is for a food or a drink card, this way the id#'s can be stored in different arrays
   if ('drinkid' in target.dataset === true) {
     let drinkId = target.dataset.drinkid;
-    saveDrinks(drinkId);
+    saveId(drinkId);
     // console.log(target.dataset.drinkid)
 
   } else if ('recipeid' in target.dataset === true) {
     let recipeId = target.dataset.recipeid;
-    saveRecipes(recipeId);
+    saveId(recipeId);
     // console.log(target.dataset.recipeid)
 
   } else {
@@ -576,4 +588,3 @@ $("#clear").click(function () {
   searchResultsContainer.innerHTML = '';
   searchResultsArr = [];
 })
-}
