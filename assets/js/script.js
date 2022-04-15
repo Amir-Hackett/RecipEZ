@@ -432,7 +432,7 @@ function getFullRecipeInfo(resultsArr) {
 
 var drinkIdArr = [];
 
-function saveDrinksId(drinkId) {
+let saveDrinksId = (drinkId) => {
 
   console.log(drinkId)
   let id = drinkId;
@@ -449,8 +449,7 @@ loadDrinksId => {
 }
 
 var recipeIdArr = [];
-
-function saveRecipeId(recipeId) {
+let saveRecipeId = (recipeId) => {
 
   console.log(recipeId)
   let id = recipeId;
@@ -458,12 +457,11 @@ function saveRecipeId(recipeId) {
   recipeIdArr.push(id);
   localStorage.setItem(key, JSON.stringify(recipeIdArr));
   
-  loadrecipesId();
+  loadRecipesId();
 }
 
-loadRecipesId => {
-  idArr = JSON.parse(localStorage.getItem("recipeId"))
-  recipeIdArr = idSearchURL;
+let loadRecipesId = () => {
+  recipeIdArr = JSON.parse(localStorage.getItem("recipeId"));
 }
 
 
