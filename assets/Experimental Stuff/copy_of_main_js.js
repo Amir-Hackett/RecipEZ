@@ -1,4 +1,3 @@
-
 var userInput = "";
 const submitDrink = document.getElementById("submit-btn");
 const submitRecipe = document.getElementById("submit-btn");
@@ -371,11 +370,13 @@ function loadFoodCards(resultsArr) {
         <div class="content">
           <img src="${resultsArr[i].image}"/>
           <h4>${resultsArr[i].title}</h4>
+
           <img src="${resultsArr[i].ingredients}" alt="Ingredients Image" />
           <p> 
           Instructions: <br/>
             ${resultsArr[i].fullInfo.instructions}
           </p>
+
           <p><a href="${resultsArr[i].fullInfo.sourceUrl}">See Full Recipe</a></p>
           <p>
             <label for="favorite">Click to save favorite: </label>
@@ -431,7 +432,7 @@ function getFullRecipeInfo(resultsArr) {
 
 var drinkIdArr = [];
 
-function saveDrinksId(drinkId) {
+let saveDrinksId = (drinkId) => {
 
   console.log(drinkId)
   let id = drinkId;
@@ -448,8 +449,7 @@ loadDrinksId => {
 }
 
 var recipeIdArr = [];
-
-function saveRecipeId(recipeId) {
+let saveRecipeId = (recipeId) => {
 
   console.log(recipeId)
   let id = recipeId;
@@ -457,12 +457,11 @@ function saveRecipeId(recipeId) {
   recipeIdArr.push(id);
   localStorage.setItem(key, JSON.stringify(recipeIdArr));
   
-  loadrecipesId();
+  loadRecipesId();
 }
 
-loadRecipesId => {
-  idArr = JSON.parse(localStorage.getItem("recipeId"))
-  recipeIdArr = idSearchURL;
+let loadRecipesId = () => {
+  recipeIdArr = JSON.parse(localStorage.getItem("recipeId"));
 }
 
 
